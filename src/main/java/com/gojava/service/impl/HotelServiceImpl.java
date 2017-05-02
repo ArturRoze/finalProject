@@ -3,11 +3,8 @@ package com.gojava.service.impl;
 import com.gojava.dao.HotelCrud;
 import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Hotel;
-import com.gojava.model.Room;
-import com.gojava.model.User;
 
 import java.util.Map;
-import java.util.Set;
 
 public class HotelServiceImpl implements HotelCrud<Hotel> {
 
@@ -33,4 +30,5 @@ public class HotelServiceImpl implements HotelCrud<Hotel> {
         hotelDao.getAll();
         return null;
     }
+
 }
