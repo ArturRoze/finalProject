@@ -33,12 +33,18 @@ public class UserServiceImpl implements UserCrud<User> {
         return userDaoImpl.getAll();
     }
 
+    @Override
     public User findById(Long id){
         return userDaoImpl.getAll().get(id);
     }
 
     @Override
-    public boolean removeBookRoom(Room aRoom) {
+    public boolean isLoginExists(String login) {
+        return getAll().values().stream().anyMatch(user -> login.equals(user.getLogin()));
+    }
+
+    @Override
+    public boolean removeBookRoom(Room room) {
         return false;
     }
 

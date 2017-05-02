@@ -14,15 +14,21 @@ public final class Utils {
     }
 
     public static Integer provideIntInputStream() {
-        System.out.print("Select choice (confirm Enter): ");
+        return provideIntInputStreamWithString("Select choice (confirm Enter): ");
+    }
+
+    //TODO close streams
+
+    public static Integer provideIntInputStreamWithString(String message) {
+        System.out.print(message);
         String line;
         BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(System.in));
             line = br.readLine();
-            try{
-                return Integer.valueOf(line);}
-            catch (NumberFormatException e){
+            try {
+                return Integer.valueOf(line);
+            } catch (NumberFormatException e) {
                 return -1;
             }
         } catch (IOException e) {
@@ -30,6 +36,7 @@ public final class Utils {
         }
         return null;
     }
+
 
     public static String provideStringInputStream(String enterData) {
         System.out.print(enterData);

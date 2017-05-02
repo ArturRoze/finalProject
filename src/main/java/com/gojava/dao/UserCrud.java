@@ -9,6 +9,8 @@ import com.gojava.model.User;
  */
 public interface UserCrud<T extends User> extends Crud<T> {
 
-    boolean removeBookRoom(Room aRoom);
-    boolean bookRoom(Room aRoom, User user);
+    User findById(Long id);
+    boolean isLoginExists(String login);
+    boolean removeBookRoom(Room room);
+    boolean bookRoom(Room room, User user);
 }
