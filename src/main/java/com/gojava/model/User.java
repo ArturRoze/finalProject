@@ -16,12 +16,14 @@ public class User implements Serializable, HaveId {
     private static final long serialVersionUID = 1L;
 
     private long id;
+    private String login;
     private String firstName;
     private String lastName;
     private Set<Long> ids;
 
-    public User(String firstName, String lastName) {
+    public User(String login, String firstName, String lastName) {
         id = IdGenerator.getRandomId();
+        this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         ids = new HashSet<>();
@@ -29,6 +31,10 @@ public class User implements Serializable, HaveId {
 
     public long getId() {
         return id;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getFirstName() {
@@ -58,21 +64,25 @@ public class User implements Serializable, HaveId {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (getId() != user.getId()) return false;
+        if (getLogin() != null ? !getLogin().equals(user.getLogin()) : user.getLogin() != null) return false;
+        if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
+            return false;
+        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
+            return false;
         return ids != null ? ids.equals(user.ids) : user.ids == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
         result = 31 * result + (ids != null ? ids.hashCode() : 0);
         return result;
     }
@@ -81,9 +91,10 @@ public class User implements Serializable, HaveId {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", login='" + login + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", room ids=" + ids.toArray().toString() +
+                ", ids count=" + ids.size() +
                 '}';
     }
 }

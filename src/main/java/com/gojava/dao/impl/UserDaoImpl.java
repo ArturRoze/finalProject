@@ -8,7 +8,7 @@ import com.gojava.model.User;
 import java.util.Map;
 import java.util.Set;
 
-public class UserDaoImpl implements UserCrud<User> {
+public class UserDaoImpl implements Crud<User> {
 
     @Override
     public User create(User entity) {
@@ -18,8 +18,8 @@ public class UserDaoImpl implements UserCrud<User> {
 
     @Override
     public User update(User entity) {
-        //todo do it
-        return null;
+        create(entity);
+        return entity;
     }
 
     @Override
@@ -32,17 +32,5 @@ public class UserDaoImpl implements UserCrud<User> {
         return DataStorage.getInstance().getUsers();
     }
 
-    @Override
-    public boolean removeBookRoom(Room aRoom) {
-        //todo do it
 
-        return false;
-    }
-
-    @Override
-    public boolean bookRoom(Room aRoom, User user) {
-        //todo do it
-
-        return false;
-    }
 }

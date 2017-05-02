@@ -1,20 +1,16 @@
 package com.gojava.controller.interactive;
 
-import com.gojava.model.Crud;
+import com.gojava.dao.UserCrud;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.impl.UserServiceImpl;
 
-import java.util.Set;
-
-import static com.gojava.dao.Utils.printBorder;
-import static com.gojava.dao.Utils.provideIntInputStream;
-import static com.gojava.dao.Utils.provideStringInputStream;
+import static com.gojava.dao.Utils.*;
 
 public class UsersMenu implements Interactive {
 
     private Interactive previousMenu;
-    private Crud<User> userService = new UserServiceImpl();
+    private UserCrud<User> userService = new UserServiceImpl();
 
     public UsersMenu(Interactive interactive) {
         this.previousMenu = interactive;
@@ -38,8 +34,8 @@ public class UsersMenu implements Interactive {
         Integer selectedItem = provideIntInputStream();
 
         if (selectedItem == null) {
-            System.err.println("not correct entered data, try again");
-            previousMenu.showMenu();
+            System.out.println("Incorrect input. Please try again");
+            showMenu();
         } else {
             switch (selectedItem) {
                 case 1:
@@ -53,7 +49,6 @@ public class UsersMenu implements Interactive {
                     break;
                 case 4:
                     showAllUsers();
-                    showMenu();
                     break;
                 case 5:
                     toBookingMenu();
@@ -70,25 +65,42 @@ public class UsersMenu implements Interactive {
 
 
     private void createUser() {
-        String name = provideStringInputStream("Enter your name: ");
-        String lastName = provideStringInputStream("Enter your lastName: ");
 
-        User user = new User(name, lastName);
+        String login = provideStringInputStream("Enter user's login: ");
+
+        if (login.length() < 3){
+            System.out.println("User's login should have at least 3 symbols. Please try again");
+            createUser();
+        }
+
+        if (userService.isLoginExists(login)) {
+            System.out.println("User with this login is already exists. Please choose another login.");
+            createUser();
+        }
+
+        String name = provideStringInputStream("Enter user's name: ");
+        String lastName = provideStringInputStream("Enter user's lastName: ");
+
+        User user = new User(login, name, lastName);
         userService.create(user);
-        System.out.println("user " + user + " added");
+        System.out.println("User " + user + " successfully created");
         showMenu();
     }
 
     private void showAllUsers() {
         System.out.println("Count of users: " + userService.getAll().values().size());
-        userService.getAll().values().stream().forEach(System.out::println);
+        if (userService.getAll().isEmpty()) {
+            showMenu();
+        } else
+            userService.getAll().values().stream().forEach(System.out::println);
+        showMenu();
     }
 
     private void updateUser() {
 
         Long usersId = enterUsersId();
 
-        User userToUpdate = userService.getAll().get(usersId);
+        User userToUpdate = userService.findById(usersId);
 
         if (userToUpdate == null) {
             System.out.println("User with this id has't been found");
@@ -106,7 +118,7 @@ public class UsersMenu implements Interactive {
     private void deleteUser() {
 
         Long idUser = enterUsersId();
-        User userToDelete = userService.getAll().get(idUser);
+        User userToDelete = userService.findById(idUser);
 
         if (userToDelete == null) {
             System.out.println("User with this id has't been found");
@@ -120,28 +132,27 @@ public class UsersMenu implements Interactive {
 
     private void toBookingMenu() {
         long usersId = enterUsersId();
-        User userToBook = userService.getAll().get(usersId);
+        User userToBook = userService.findById(usersId);
 
-
-        bookingMenu = new BookingMenu(userToBook, this);
-        bookingMenu.showMenu();
+        if (userToBook != null)
+            bookingMenu = new BookingMenu(userToBook, this);
+        else
+            bookingMenu.showMenu();
     }
 
     private long enterUsersId() {
-        Long idUser = null;
+        Integer idUser = null;
 
-        String idUserString = provideStringInputStream("Enter id of user: ");
-        if (idUserString == null) {
+        idUser = provideIntInputStreamWithString("Enter id of user: ");
+        if (idUser == null) {
+            System.out.println("Incorrect input. Please try again");
             showMenu();
         } else {
             try {
-                idUser = Long.parseLong(idUserString);
             } catch (NumberFormatException e) {
                 return -1;
             }
         }
-        //TODO validate id
-
         return idUser;
     }
 }
