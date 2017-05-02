@@ -101,6 +101,14 @@ public class HotelsMenu implements Interactive {
     }
 
 
+    public void findHotelByName(){
+        // TODO
+    };
+
+    public void findHotelByCity(){
+        // TODO
+    };
+
     public void addHotel() {
         //TODO remake it
         String name = provideStringInputStream("enter hotel name: ");
