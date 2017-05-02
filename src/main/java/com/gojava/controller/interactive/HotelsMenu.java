@@ -28,9 +28,10 @@ public class HotelsMenu implements Interactive {
         System.out.println("1) Add hotel");
         System.out.println("2) Update hotel");
         System.out.println("3) Delete hotel");
-        System.out.println("4) Show all hotels");
-        System.out.println("5) Manage hotel rooms");
-        System.out.println("6) Back to main menu");
+        System.out.println("4) Find hotel");
+        System.out.println("5) Show all hotels");
+        System.out.println("6) Manage hotel rooms");
+        System.out.println("7) Back to main menu");
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
@@ -50,17 +51,51 @@ public class HotelsMenu implements Interactive {
                     deleteHotel();
                     break;
                 case 4:
-                    showAllHotels();
+                    findHotel();
                     break;
                 case 5:
-                    manageHotelRooms();
+                    showAllHotels();
                     break;
                 case 6:
+                    manageHotelRooms();
+                    break;
+                case 7:
                     previousMenu.showMenu();
                     break;
                 default:
                     showMenu();
                     break;
+            }
+        }
+    }
+
+    public void findHotel() {
+        printBorder();
+        System.out.println("1) Find hotel by name");
+        System.out.println("2) Find hotel by city");
+        printBorder();
+
+        Integer selectedItem = provideIntInputStream();
+
+        if (selectedItem == null) {
+            System.err.println("not correct entered data, try again");
+            findHotel();
+            while (true) {
+                switch (selectedItem) {
+                    case 1:
+                        findHotelByName();
+                        break;
+                    case 2:
+                        findHotelByCity();
+                        break;
+                    case 3:
+                        previousMenu.showMenu();
+                        break;
+                    default:
+                        showMenu();
+                        findHotel();
+                        break;
+                }
             }
         }
     }
@@ -115,4 +150,6 @@ public class HotelsMenu implements Interactive {
         hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
         hotelRoomsMenu.showMenu();
     }
+
+
 }
