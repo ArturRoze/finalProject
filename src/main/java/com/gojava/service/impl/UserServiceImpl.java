@@ -1,6 +1,6 @@
 package com.gojava.service.impl;
 
-import com.gojava.dao.UserCrud;
+import com.gojava.service.UserService;
 import com.gojava.dao.impl.UserDaoImpl;
 import com.gojava.model.Crud;
 import com.gojava.model.Room;
@@ -8,7 +8,7 @@ import com.gojava.model.User;
 
 import java.util.Map;
 
-public class UserServiceImpl implements UserCrud<User> {
+public class UserServiceImpl implements UserService<User> {
 
     Crud<User> userDaoImpl = new UserDaoImpl();
 

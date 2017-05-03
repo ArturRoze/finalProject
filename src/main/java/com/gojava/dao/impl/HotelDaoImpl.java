@@ -1,12 +1,11 @@
 package com.gojava.dao.impl;
 
-import com.gojava.dao.HotelCrud;
+import com.gojava.service.HotelService;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
 
-public class HotelDaoImpl implements HotelCrud<Hotel> {
-
+public class HotelDaoImpl implements HotelService<Hotel> {
 
     @Override
     public Hotel create(Hotel hotel) {
@@ -36,5 +35,4 @@ public class HotelDaoImpl implements HotelCrud<Hotel> {
     public Map<Long, Hotel> getAll() {
         return DataStorage.getInstance().getHotels();
     }
-
 }

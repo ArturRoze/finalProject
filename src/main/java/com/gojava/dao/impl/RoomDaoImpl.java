@@ -1,7 +1,7 @@
 package com.gojava.dao.impl;
 
-import com.gojava.dao.HotelCrud;
-import com.gojava.dao.RoomCrud;
+import com.gojava.service.HotelService;
+import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.model.User;
@@ -9,9 +9,9 @@ import com.gojava.model.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomDaoImpl implements RoomCrud<Room> {
+public class RoomDaoImpl implements RoomService<Room> {
 
-    private HotelCrud<Hotel> hotelDao = new HotelDaoImpl();
+    private HotelService<Hotel> hotelDao = new HotelDaoImpl();
 
     @Override
     public Room create(Room entity) {

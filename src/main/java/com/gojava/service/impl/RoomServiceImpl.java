@@ -1,7 +1,7 @@
 package com.gojava.service.impl;
 
-import com.gojava.dao.HotelCrud;
-import com.gojava.dao.RoomCrud;
+import com.gojava.service.HotelService;
+import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.model.User;
@@ -13,9 +13,9 @@ import java.util.Set;
  *
  */
 
-public class RoomServiceImpl implements RoomCrud<Room> {
+public class RoomServiceImpl implements RoomService<Room> {
 
-    private HotelCrud<Hotel> hotelService = new HotelServiceImpl();
+    private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
     @Override
     public Room create(Room entity) {

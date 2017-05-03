@@ -1,6 +1,6 @@
 package com.gojava.controller.interactive;
 
-import com.gojava.dao.UserCrud;
+import com.gojava.service.UserService;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.impl.RoomServiceImpl;
@@ -17,7 +17,7 @@ public class BookingMenu implements Interactive {
     private User currentUser;
     private String usersFullName = currentUser.getFirstName() + " " + currentUser.getLastName();
     private Interactive previousMenu;
-    private UserCrud<User> userService = new UserServiceImpl();
+    private UserService<User> userService = new UserServiceImpl();
     private RoomServiceImpl roomService = new RoomServiceImpl();
 
 

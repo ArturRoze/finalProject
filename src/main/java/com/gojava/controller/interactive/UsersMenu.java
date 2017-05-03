@@ -1,6 +1,6 @@
 package com.gojava.controller.interactive;
 
-import com.gojava.dao.UserCrud;
+import com.gojava.service.UserService;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.impl.UserServiceImpl;
@@ -10,7 +10,7 @@ import static com.gojava.dao.Utils.*;
 public class UsersMenu implements Interactive {
 
     private Interactive previousMenu;
-    private UserCrud<User> userService = new UserServiceImpl();
+    private UserService<User> userService = new UserServiceImpl();
 
     public UsersMenu(Interactive interactive) {
         this.previousMenu = interactive;

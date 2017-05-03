@@ -1,4 +1,4 @@
-package com.gojava.dao;
+package com.gojava.service;
 
 import com.gojava.model.Crud;
 import com.gojava.model.Room;
@@ -7,7 +7,7 @@ import com.gojava.model.User;
 /**
  *
  */
-public interface UserCrud<T extends User> extends Crud<T> {
+public interface UserService<T extends User> extends Crud<T> {
 
     User findById(Long id);
     boolean isLoginExists(String login);

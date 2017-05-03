@@ -1,6 +1,6 @@
 package com.gojava.controller.interactive;
 
-import com.gojava.dao.HotelCrud;
+import com.gojava.service.HotelService;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
 import com.gojava.service.impl.HotelServiceImpl;
@@ -11,7 +11,7 @@ public class HotelsMenu implements Interactive {
 
     private Interactive previousMenu;
     private HotelRoomsMenu hotelRoomsMenu;
-    private HotelCrud<Hotel> hotelService = new HotelServiceImpl();
+    private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
     public HotelsMenu(Interactive interactive) {
         this.previousMenu = interactive;
@@ -101,13 +101,9 @@ public class HotelsMenu implements Interactive {
         // TODO
     }
 
-    ;
-
     public void findHotelByCity() {
         // TODO
     }
-
-    ;
 
     public void addHotel() {
         //TODO check enter data
@@ -128,12 +124,14 @@ public class HotelsMenu implements Interactive {
 
     public void updateHotel() {
         //TODO make it
+
         System.err.println("not ready yet");
         showMenu();
     }
 
     public void deleteHotel() {
         //TODO make it
+
         System.err.println("not ready yet");
         showMenu();
     }

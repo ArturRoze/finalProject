@@ -1,14 +1,14 @@
 package com.gojava.service.impl;
 
-import com.gojava.dao.HotelCrud;
+import com.gojava.service.HotelService;
 import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
 
-public class HotelServiceImpl implements HotelCrud<Hotel> {
+public class HotelServiceImpl implements HotelService<Hotel> {
 
-    private HotelCrud<Hotel> hotelDao = new HotelDaoImpl();
+    private HotelService<Hotel> hotelDao = new HotelDaoImpl();
 
     @Override
     public Hotel create(Hotel hotel) {
