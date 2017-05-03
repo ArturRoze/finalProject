@@ -27,8 +27,6 @@ public class HotelServiceImpl implements HotelService<Hotel> {
 
     @Override
     public Map<Long, Hotel> getAll() {
-        hotelDao.getAll();
-        return null;
+       return hotelDao.getAll();
     }
-
 }
