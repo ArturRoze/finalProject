@@ -1,7 +1,6 @@
 package com.gojava;
 
 import com.gojava.controller.interactive.MainMenu;
-import com.gojava.model.Interactive;
 
 public class Main {
 
