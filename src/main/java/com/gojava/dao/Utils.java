@@ -29,7 +29,7 @@ public final class Utils {
             try {
                 return Integer.valueOf(line);
             } catch (NumberFormatException e) {
-                return -1;
+                return null;
             }
         } catch (IOException e) {
             e.printStackTrace();

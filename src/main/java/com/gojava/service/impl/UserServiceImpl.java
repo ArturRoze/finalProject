@@ -7,7 +7,6 @@ import com.gojava.model.Room;
 import com.gojava.model.User;
 
 import java.util.Map;
-import java.util.Set;
 
 public class UserServiceImpl implements UserCrud<User> {
 
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserCrud<User> {
 
     @Override
     public User delete(User entity) {
-       return userDaoImpl.delete(entity);
+        return userDaoImpl.delete(entity);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserCrud<User> {
     }
 
     @Override
-    public User findById(Long id){
+    public User findById(Long id) {
         return userDaoImpl.getAll().get(id);
     }
 

@@ -3,11 +3,7 @@ package com.gojava.controller.interactive;
 import com.gojava.dao.HotelCrud;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
-import com.gojava.model.Room;
 import com.gojava.service.impl.HotelServiceImpl;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.gojava.dao.Utils.*;
 
@@ -101,27 +97,28 @@ public class HotelsMenu implements Interactive {
     }
 
 
-    public void findHotelByName(){
+    public void findHotelByName() {
         // TODO
-    };
+    }
 
-    public void findHotelByCity(){
+    ;
+
+    public void findHotelByCity() {
         // TODO
-    };
+    }
+
+    ;
 
     public void addHotel() {
-        //TODO remake it
+        //TODO check enter data
         String name = provideStringInputStream("enter hotel name: ");
         String city = provideStringInputStream("enter hotel city: ");
-        Set<Room> aRooms = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
-            aRooms.add(new Room(name));
-        }
 
-        Hotel hotel = new Hotel(
-                name,
-                city
-        );
+        Hotel hotel = new Hotel(name, city);
+        hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
+        for (int i = 0; i < 10; i++) {
+            // todo addRooms
+        }
 
         Hotel addedHotel = hotelService.create(hotel);
         System.out.println("added new hotel: " + addedHotel.toString());
@@ -142,9 +139,11 @@ public class HotelsMenu implements Interactive {
     }
 
     public void showAllHotels() {
-        //TODO remake
-        hotelService.getAll().values().forEach(System.out::println);
-
+        System.out.println("Count of users: " + hotelService.getAll().size());
+        if (hotelService.getAll().isEmpty()) {
+            showMenu();
+        } else
+            hotelService.getAll().values().forEach(System.out::println);
         showMenu();
     }
 

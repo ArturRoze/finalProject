@@ -1,12 +1,9 @@
 package com.gojava.dao.impl;
 
-import com.gojava.dao.UserCrud;
 import com.gojava.model.Crud;
-import com.gojava.model.Room;
 import com.gojava.model.User;
 
 import java.util.Map;
-import java.util.Set;
 
 public class UserDaoImpl implements Crud<User> {
 

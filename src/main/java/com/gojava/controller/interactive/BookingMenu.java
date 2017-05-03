@@ -1,7 +1,6 @@
 package com.gojava.controller.interactive;
 
 import com.gojava.dao.UserCrud;
-import com.gojava.model.Crud;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.impl.RoomServiceImpl;
@@ -48,7 +47,7 @@ public class BookingMenu implements Interactive {
                     bookRoomOnUsersName();
                     break;
                 case 2:
-                   unBookRoom();
+                    unBookRoom();
                     break;
                 case 3:
                     showAllBookedRooms();

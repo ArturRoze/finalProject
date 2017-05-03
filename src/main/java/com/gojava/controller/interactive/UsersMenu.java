@@ -68,7 +68,7 @@ public class UsersMenu implements Interactive {
 
         String login = provideStringInputStream("Enter user's login: ");
 
-        if (login.length() < 3){
+        if (login.length() < 3) {
             System.out.println("User's login should have at least 3 symbols. Please try again");
             createUser();
         }
@@ -88,11 +88,11 @@ public class UsersMenu implements Interactive {
     }
 
     private void showAllUsers() {
-        System.out.println("Count of users: " + userService.getAll().values().size());
+        System.out.println("Count of users: " + userService.getAll().size());
         if (userService.getAll().isEmpty()) {
             showMenu();
         } else
-            userService.getAll().values().stream().forEach(System.out::println);
+            userService.getAll().values().forEach(System.out::println);
         showMenu();
     }
 
@@ -149,6 +149,7 @@ public class UsersMenu implements Interactive {
             showMenu();
         } else {
             try {
+                // todo pars
             } catch (NumberFormatException e) {
                 return -1;
             }

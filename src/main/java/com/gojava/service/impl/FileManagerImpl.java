@@ -4,10 +4,7 @@ import com.gojava.dao.Utils;
 import com.gojava.dao.impl.DataStorage;
 import com.gojava.service.FileManager;
 
-import java.io.BufferedReader;
-
 public class FileManagerImpl implements FileManager {
-
 
     @Override
     public DataStorage readData(String str) {

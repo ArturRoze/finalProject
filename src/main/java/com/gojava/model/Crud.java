@@ -1,6 +1,5 @@
 package com.gojava.model;
 
-
 import java.util.Map;
 
 public interface Crud<T extends HaveId> {

@@ -47,15 +47,15 @@ public class RoomServiceImpl implements RoomCrud<Room> {
         return false;
     }
 
-    public Set<Room> getAllRooms(){
+    public Set<Room> getAllRooms() {
         return (Set<Room>) getAll().values();
     }
 
-    public Set<Room> getAllHotelRooms(Hotel hotel){
+    public Set<Room> getAllHotelRooms(Hotel hotel) {
         return hotel.getRooms();
     }
 
-    public Room findRoomById (Long id){
+    public Room findRoomById(Long id) {
         //todo
         return null;
     }
