@@ -111,7 +111,7 @@ public class HotelsMenu implements Interactive {
         // TODO
     }
 
-    public void addHotel() {
+    private void addHotel() {
 
         String name = provideStringInputStream("enter hotel name: ");
         if (!Utils.validateString(name)) {
@@ -148,12 +148,18 @@ public class HotelsMenu implements Interactive {
         showMenu();
     }
 
-    public void updateHotel() {
+    private void updateHotel() {
         hotelService.getAll().values().forEach(System.out::println);
 
-        Long idChoose = provideIntInputStreamWithString("select hotel by id: ").longValue();
+        Integer idChoose = provideIntInputStreamWithString("select hotel by id: ");
+        if (idChoose == null) {
+            System.out.println("incorrect data");
+            updateHotel();
+        }
 
-        Hotel hotel = hotelService.getAll().get(idChoose);
+        Long idChoose1 = idChoose.longValue();
+
+        Hotel hotel = hotelService.getAll().get(idChoose1);
         if (hotel == null) {
             System.out.println("Incorrect data. Please try again");
             updateHotel();
@@ -174,9 +180,10 @@ public class HotelsMenu implements Interactive {
         showMenu();
     }
 
-    public void deleteHotel() {
+    private void deleteHotel() {
         hotelService.getAll().values().forEach(System.out::println);
-        Integer removeHotelId = provideIntInputStreamWithString("entered id hotel: ");
+
+        Integer removeHotelId = provideIntInputStreamWithString("choose id hotel: ");
         if (removeHotelId == null) {
             System.out.println("incorrect data");
             deleteHotel();
@@ -192,9 +199,8 @@ public class HotelsMenu implements Interactive {
         showMenu();
     }
 
-
-    public void showAllHotels() {
-        System.out.println("Count of users: " + hotelService.getAll().size());
+    private void showAllHotels() {
+        System.out.println("Count of hotels: " + hotelService.getAll().size());
         if (hotelService.getAll().isEmpty()) {
             showMenu();
         } else
