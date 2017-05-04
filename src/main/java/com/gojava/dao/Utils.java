@@ -80,7 +80,8 @@ public final class Utils {
         //TODO use try with resources
         try {
             T result = null;
-            if (new File(fileName).exists()) {
+            File file = new File(fileName);
+            if (file.exists() || file.length()>1) {
 
                 FileInputStream fis = new FileInputStream(fileName);
                 ObjectInputStream oin = new ObjectInputStream(fis);
@@ -95,5 +96,12 @@ public final class Utils {
             e.printStackTrace();
         }
         return null;
+    }
+    public static boolean validateString (String str) {
+        if (str == null || str.isEmpty() || str.length() < 3){
+            System.out.println("incorrect string: " + str);
+            return false;
+        }
+        return true;
     }
 }

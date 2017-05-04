@@ -47,6 +47,10 @@ public class Hotel implements Serializable, HaveId {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public Set<Room> getRooms() {
         return rooms;
     }

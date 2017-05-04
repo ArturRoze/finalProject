@@ -21,9 +21,13 @@ public class HotelDaoImpl implements HotelService<Hotel> {
 
     @Override
     public Hotel update(Hotel hotel) {
-        //TODO remake it
-        DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);
-        return hotel;
+        if (hotel == null){
+            throw new RuntimeException("Hotel can't be null");
+        } else {
+            DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);
+            return hotel;
+        }
+
     }
 
     @Override

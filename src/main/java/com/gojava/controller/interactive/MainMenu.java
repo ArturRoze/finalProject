@@ -13,9 +13,7 @@ public class MainMenu implements Interactive {
     private final static String FILE_NAME = "file.txt";
     private HotelsMenu hotelInteractive = new HotelsMenu(this);
     private UsersMenu usersMenu = new UsersMenu(this);
-
     private FileManager fileManager = new FileManagerImpl();
-
 
     @Override
     public void showMenu() {
