@@ -93,7 +93,7 @@ public final class Utils {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return null;
     }

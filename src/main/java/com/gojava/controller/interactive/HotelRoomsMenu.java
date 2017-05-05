@@ -82,7 +82,7 @@ public class HotelRoomsMenu implements Interactive {
             hotelService.addRoomToHotel(room, currentHotel);
         }
 
-        String choice = provideStringInputStream("Enter 'Y' if you want to add another room: ");
+        String choice = provideStringInputStream("Enter 'y' if you want to add another room: ");
         if (!isValidString(choice) && !choice.toLowerCase().equals("y"))
             showMenu();
         else

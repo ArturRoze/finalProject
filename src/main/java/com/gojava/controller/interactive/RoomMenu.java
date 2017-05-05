@@ -32,7 +32,7 @@ public class RoomMenu implements Interactive {
         System.out.println("Room " + currentRoom + " menu");
         System.out.println("1) Update room");
         System.out.println("2) Delete room");
-        System.out.println("3) Book room on user's name");
+        System.out.println("3) Book user");
         System.out.println("4) Back to hotel rooms menu");
         printBorder();
 
@@ -50,7 +50,7 @@ public class RoomMenu implements Interactive {
                     deleteRoom();
                     break;
                 case 3:
-                    bookRoom();
+                    toBookingMenu();
                     break;
                 case 4:
                     previousMenu.showMenu();
@@ -81,7 +81,7 @@ public class RoomMenu implements Interactive {
         }
     }
 
-    private void bookRoom() {
+    private void toBookingMenu() {
         Interactive bookingMenu = new RoomBookingMenu(currentRoom, this);
         bookingMenu.showMenu();
     }

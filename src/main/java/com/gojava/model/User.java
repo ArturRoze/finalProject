@@ -19,14 +19,14 @@ public class User implements Serializable, HaveId {
     private String login;
     private String firstName;
     private String lastName;
-    private Set<Room> bookedRooms;
+    private Set<Long> bookedRoomIds;
 
     public User(String login, String firstName, String lastName) {
         id = IdGenerator.getRandomId();
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
-        bookedRooms = new HashSet<>();
+        bookedRoomIds = new HashSet<>();
     }
 
     public long getId() {
@@ -53,12 +53,12 @@ public class User implements Serializable, HaveId {
         this.lastName = lastName;
     }
 
-    public Set<Room> getRooms() {
-        return bookedRooms;
+    public Set<Long> getBookedRoomIds() {
+        return bookedRoomIds;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.bookedRooms = rooms;
+    public void setRooms(Set<Long> rooms) {
+        this.bookedRoomIds = rooms;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class User implements Serializable, HaveId {
             return false;
         if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
             return false;
-        return bookedRooms != null ? bookedRooms.equals(user.bookedRooms) : user.bookedRooms == null;
+        return bookedRoomIds != null ? bookedRoomIds.equals(user.bookedRoomIds) : user.bookedRoomIds == null;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class User implements Serializable, HaveId {
         result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
-        result = 31 * result + (bookedRooms != null ? bookedRooms.hashCode() : 0);
+        result = 31 * result + (bookedRoomIds != null ? bookedRoomIds.hashCode() : 0);
         return result;
     }
 
@@ -94,7 +94,7 @@ public class User implements Serializable, HaveId {
                 ", login='" + login + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", booked rooms count=" + bookedRooms.size() +
+                ", booked rooms count=" + bookedRoomIds.size() +
                 '}';
     }
 }

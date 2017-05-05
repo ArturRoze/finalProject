@@ -23,11 +23,11 @@ public class UsersMenu implements Interactive {
     public void showMenu() {
         printBorder();
         System.out.println("Users Menu");
-        System.out.println("4) Show all users");
-        System.out.println("1) Add user");
-        System.out.println("2) Update user");
-        System.out.println("3) Delete user");
-        System.out.println("5) Booking menu");
+        System.out.println("1) Show all users");
+        System.out.println("2) Add user");
+        System.out.println("3) Update user");
+        System.out.println("4) Delete user");
+        System.out.println("5) Book room");
         System.out.println("6) Back to main menu");
         printBorder();
 
@@ -99,9 +99,17 @@ public class UsersMenu implements Interactive {
 
     private void updateUser() {
 
-        Long usersId = enterUsersId();
+        String userLogin = provideStringInputStream("Enter user's login: ");
 
-        User userToUpdate = userService.findById(usersId);
+        if (!isValidString(userLogin))
+            showMenu();
+
+        if (!userService.isLoginExists(userLogin)) {
+            System.out.println("User with login " + userLogin + " doesn't exist. Please choose another login.");
+            toBookingMenu();
+        }
+
+        User userToUpdate = userService.findUserByLogin(userLogin);
 
         if (userToUpdate == null) {
             System.out.println("User with this id has't been found");
@@ -111,15 +119,24 @@ public class UsersMenu implements Interactive {
             String newLastName = provideStringInputStream("Enter new last name: ");
             userToUpdate.setFirstName(newFirstName);
             userToUpdate.setLastName(newLastName);
-            System.out.println("This user with " + usersId + " changed");
+            System.out.println("This user with " + userLogin + " changed");
         }
         showMenu();
     }
 
     private void deleteUser() {
 
-        Long idUser = enterUsersId();
-        User userToDelete = userService.findById(idUser);
+        String userLogin = provideStringInputStream("Enter user's login: ");
+
+        if (!isValidString(userLogin))
+            showMenu();
+
+        if (!userService.isLoginExists(userLogin)) {
+            System.out.println("User with login " + userLogin + " doesn't exist. Please choose another login.");
+            toBookingMenu();
+        }
+
+        User userToDelete = userService.findUserByLogin(userLogin);
 
         if (userToDelete == null) {
             System.out.println("User with this id has't been found");
@@ -132,31 +149,23 @@ public class UsersMenu implements Interactive {
     }
 
     private void toBookingMenu() {
-        long usersId = enterUsersId();
-        User userToBook = userService.findById(usersId);
 
-        if (userToBook != null)
-            bookingMenu = new UserBookingMenu(userToBook, this);
-        else
-            bookingMenu.showMenu();
-    }
+        String userLogin = provideStringInputStream("Enter user's login: ");
 
-    private long enterUsersId() {
-
-        //TODO not pretty
-        Integer idUser = null;
-
-        idUser = provideIntInputStreamWithMessage("Enter id of user: ");
-        if (idUser == null) {
-            System.out.println("Incorrect input. Please try again");
+        if (!isValidString(userLogin))
             showMenu();
-        } else {
-            try {
-                // todo parse
-            } catch (NumberFormatException e) {
-                return -1;
-            }
+
+        if (!userService.isLoginExists(userLogin)) {
+            System.out.println("User with login " + userLogin + " doesn't exist. Please choose another login.");
+            toBookingMenu();
         }
-        return idUser;
+
+        User userToBook = userService.findUserByLogin(userLogin);
+
+        if (userToBook != null) {
+            bookingMenu = new UserBookingMenu(userToBook, this);
+            bookingMenu.showMenu();
+        } else
+            bookingMenu.showMenu();
     }
 }

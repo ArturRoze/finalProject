@@ -182,9 +182,9 @@ public class HotelsMenu implements Interactive {
         long idHotel = removeHotelId.longValue();
         Hotel removedHotel = hotelService.getAll().remove(idHotel);
         if (removedHotel == null) {
-            System.out.println("Hotel with this id isn't exist");
+            System.out.println("Hotel with this id doesn't exist");
         } else {
-            System.out.println("This Hotel with id" + idHotel + "has been deleted");
+            System.out.println("This Hotel with id " + idHotel + " has been deleted");
         }
         showMenu();
     }

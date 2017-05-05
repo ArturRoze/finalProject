@@ -45,13 +45,17 @@ public class RoomServiceImpl implements RoomService<Room> {
     }
 
     @Override
-    public boolean bookUser(Room aRoom, User user) {
-        return false;
+    public boolean bookUser(Room room, User user) {
+        room.setAvailable(false);
+        room.setBookedUserName(user.getLogin());
+        return true;
     }
 
     @Override
-    public boolean unBookUser(Room aRoom) {
-        return false;
+    public boolean unBookUser(Room room) {
+        room.setAvailable(true);
+        room.setBookedUserName(null);
+        return true;
     }
 
     public Map<Long, Room> getAllHotelRooms(long hotelId) {
