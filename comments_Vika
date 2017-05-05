@@ -2,7 +2,7 @@ Comments:
 
 0. Comments 1.-6., 11.-13. are valid for whole project.
 
-1. Please remove unused imports from all classes.
+1. Please remove unused imports and unused methods from all classes.
 Please, use clean code practices.
 Please, write java doc for complicated classes, complicated fields, complicated methods.
 All class field should be private.
@@ -78,6 +78,8 @@ public DataStorage readData(String str) {                    
     return Utils.readFile(str); 
 }
 
-14.
+14. Crud need be not in model package, but in dao package
+
+15.
     
 
