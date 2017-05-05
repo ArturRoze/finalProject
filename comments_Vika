@@ -1,6 +1,6 @@
 Comments:
 
-0. Comments 1.-6., 11. are valid for whole project.
+0. Comments 1.-6., 11., 12. are valid for whole project.
 
 1. Please remove unused imports from all classes.
 Please, use clean code practices.
@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService<User> {
    
    The same about all classes with dependencies
    
-12.
+12. You can use java.nio library insted of java.io library
+
+13.
     
 
