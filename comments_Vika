@@ -21,5 +21,10 @@ System.out.println("Error with starting main menu");
 catch (Exception e) {
 It would be better to write more specific exception class
 
-5. 
+5. Always write at the left side interface/abstract class, for example:
+List<Person> persons = new ArrayList<>();
+
+6. Comments 1.-5. are valid for whole project.
+
+7.
 
