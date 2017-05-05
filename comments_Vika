@@ -33,5 +33,7 @@ List<Person> persons = new ArrayList<>();
 I think better name method is:
 cancelBookRoom
 
-8. 
+8. Why interface HotelService is empty?
+
+9.
 
