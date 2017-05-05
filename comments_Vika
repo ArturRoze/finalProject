@@ -1,6 +1,6 @@
 Comments:
 
-0. Comments 1.-6. are valid for whole project.
+0. Comments 1.-6., 11. are valid for whole project.
 
 1. Please remove unused imports from all classes.
 Please, use clean code practices.
@@ -47,5 +47,20 @@ or unbookRoomByUser
 I think better name method is:
 bookRoomByUser
 
-11.
+11. In UserServiceImpl I see:
+public class UserServiceImpl implements UserService<User> {
+    Crud<User> userDaoImpl = new UserDaoImpl();
+    
+    It should be:
+   public class UserServiceImpl implements UserService<User> {    
+      private Crud<User> userDaoImpl;
+   
+      public UserServiceImpl (Crud<User> userDaoImpl) {
+         this.userDaoImpl = userDaoImpl;
+      }
+      
+   }
+   
+12.
+    
 
