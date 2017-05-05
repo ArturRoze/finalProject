@@ -78,9 +78,9 @@ public DataStorage readData(String str) {                    
     return Utils.readFile(str); 
 }
 
-14. Crud need be not in model package, but in dao package
+14. Class Crud need be not in model package, but in dao package
 
-15. All shoul be in the same way
+15. All should be in the same way
 public Hotel(String name, String city) {       
 id = IdGenerator.getRandomId();       
 this.name = name;        
@@ -90,6 +90,6 @@ rooms = new HashSet<>();
 
 So please write this. for all fields in constructor
 
-16.
+16. classes Interactive and Main should be in "com.gojava.runner" package
     
 
