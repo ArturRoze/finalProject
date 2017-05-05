@@ -1,7 +1,9 @@
 package com.gojava.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -18,20 +20,20 @@ public class Hotel implements Serializable, HaveId {
     private long id;
     private String name;
     private String city;
-    private Set<Room> rooms;
+    private Map<Long, Room> rooms;
 
     public Hotel(String name, String city) {
         id = IdGenerator.getRandomId();
         this.name = name;
         this.city = city;
-        rooms = new HashSet<>();
+        rooms = new HashMap<>();
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setRooms(Set<Room> rooms) {
+    public void setRooms(Map<Long, Room> rooms) {
         this.rooms = rooms;
     }
 
@@ -51,7 +53,7 @@ public class Hotel implements Serializable, HaveId {
         this.city = city;
     }
 
-    public Set<Room> getRooms() {
+    public Map<Long, Room> getRooms() {
         return rooms;
     }
 

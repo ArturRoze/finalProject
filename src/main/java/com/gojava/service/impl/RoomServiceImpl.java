@@ -1,5 +1,7 @@
 package com.gojava.service.impl;
 
+import com.gojava.dao.impl.RoomDaoImpl;
+import com.gojava.model.Crud;
 import com.gojava.service.HotelService;
 import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
@@ -7,7 +9,6 @@ import com.gojava.model.Room;
 import com.gojava.model.User;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -16,25 +17,31 @@ import java.util.Set;
 public class RoomServiceImpl implements RoomService<Room> {
 
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
+    private Crud<Room> roomDaoImpl = new RoomDaoImpl();
 
     @Override
     public Room create(Room entity) {
-        return null;
+        return roomDaoImpl.create(entity);
     }
 
     @Override
-    public Room update(Room entity) {
-        return null;
+    public boolean update(Room entity) {
+        return roomDaoImpl.update(entity);
     }
 
     @Override
     public Room delete(Room entity) {
-        return null;
+        return roomDaoImpl.delete(entity);
     }
 
     @Override
     public Map<Long, Room> getAll() {
-        return null;
+        return roomDaoImpl.getAll();
+    }
+
+    @Override
+    public Room findById(long id) {
+        return roomDaoImpl.findById(id);
     }
 
     @Override
@@ -47,16 +54,9 @@ public class RoomServiceImpl implements RoomService<Room> {
         return false;
     }
 
-    public Set<Room> getAllRooms() {
-        return (Set<Room>) getAll().values();
+    public Map<Long, Room> getAllHotelRooms(long hotelId) {
+        return hotelService.findById(hotelId).getRooms();
     }
 
-    public Set<Room> getAllHotelRooms(Hotel hotel) {
-        return hotel.getRooms();
-    }
 
-    public Room findRoomById(Long id) {
-        //todo
-        return null;
-    }
 }

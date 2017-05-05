@@ -15,33 +15,51 @@ public class Room implements Serializable, HaveId {
     private static final long serialVersionUID = 1L;
 
     private long id;
-    private String hotelName;
+    private Hotel hotel;
+    private int number;
     private boolean available;
+    private User bookedUser;
 
-    public Room(String hotelName) {
+    public Room(Hotel hotel, int number) {
         id = IdGenerator.getRandomId();
-        this.hotelName = hotelName;
+        this.hotel = hotel;
+        this.number = number;
         available = true;
+
     }
 
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public void setAvailable(boolean available) {
         this.available = available;
     }
 
+    public void setBookedUser(User bookedUser) {
+        this.bookedUser = bookedUser;
+    }
+
+
+    @Override
     public long getId() {
         return id;
     }
 
-    public String getHotelName() {
-        return hotelName;
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public User getBookedUser() {
+        return bookedUser;
     }
 
     @Override
@@ -52,15 +70,19 @@ public class Room implements Serializable, HaveId {
         Room room = (Room) o;
 
         if (getId() != room.getId()) return false;
+        if (getNumber() != room.getNumber()) return false;
         if (isAvailable() != room.isAvailable()) return false;
-        return getHotelName() != null ? getHotelName().equals(room.getHotelName()) : room.getHotelName() == null;
+        if (getHotel() != null ? !getHotel().equals(room.getHotel()) : room.getHotel() != null) return false;
+        return getBookedUser() != null ? getBookedUser().equals(room.getBookedUser()) : room.getBookedUser() == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getHotelName() != null ? getHotelName().hashCode() : 0);
+        result = 31 * result + (getHotel() != null ? getHotel().hashCode() : 0);
+        result = 31 * result + getNumber();
         result = 31 * result + (isAvailable() ? 1 : 0);
+        result = 31 * result + (getBookedUser() != null ? getBookedUser().hashCode() : 0);
         return result;
     }
 
@@ -68,8 +90,10 @@ public class Room implements Serializable, HaveId {
     public String toString() {
         return "Room{" +
                 "id=" + id +
-                ", hotelName='" + hotelName + '\'' +
+                ", hotel=" + hotel.getName() +
+                ", number=" + number +
                 ", available=" + available +
+                ", bookedUser=" + bookedUser +
                 '}';
     }
 }

@@ -1,11 +1,12 @@
 package com.gojava.dao.impl;
 
+import com.gojava.model.Crud;
 import com.gojava.service.HotelService;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
 
-public class HotelDaoImpl implements HotelService<Hotel> {
+public class HotelDaoImpl implements Crud<Hotel> {
 
     @Override
     public Hotel create(Hotel hotel) {
@@ -20,12 +21,12 @@ public class HotelDaoImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Hotel update(Hotel hotel) {
+    public boolean update(Hotel hotel) {
         if (hotel == null){
             throw new RuntimeException("Hotel can't be null");
         } else {
             DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);
-            return hotel;
+            return true;
         }
 
     }
@@ -39,4 +40,11 @@ public class HotelDaoImpl implements HotelService<Hotel> {
     public Map<Long, Hotel> getAll() {
         return DataStorage.getInstance().getHotels();
     }
+
+    @Override
+    public Hotel findById(long id) {
+        return getAll().get(id);
+    }
+
+
 }

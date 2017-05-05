@@ -19,14 +19,14 @@ public class User implements Serializable, HaveId {
     private String login;
     private String firstName;
     private String lastName;
-    private Set<Long> ids;
+    private Set<Room> bookedRooms;
 
     public User(String login, String firstName, String lastName) {
         id = IdGenerator.getRandomId();
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
-        ids = new HashSet<>();
+        bookedRooms = new HashSet<>();
     }
 
     public long getId() {
@@ -53,12 +53,12 @@ public class User implements Serializable, HaveId {
         this.lastName = lastName;
     }
 
-    public Set<Long> getRooms() {
-        return ids;
+    public Set<Room> getRooms() {
+        return bookedRooms;
     }
 
-    public void setRooms(Set<Long> ids) {
-        this.ids = ids;
+    public void setRooms(Set<Room> rooms) {
+        this.bookedRooms = rooms;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class User implements Serializable, HaveId {
             return false;
         if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
             return false;
-        return ids != null ? ids.equals(user.ids) : user.ids == null;
+        return bookedRooms != null ? bookedRooms.equals(user.bookedRooms) : user.bookedRooms == null;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class User implements Serializable, HaveId {
         result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
-        result = 31 * result + (ids != null ? ids.hashCode() : 0);
+        result = 31 * result + (bookedRooms != null ? bookedRooms.hashCode() : 0);
         return result;
     }
 
@@ -94,7 +94,7 @@ public class User implements Serializable, HaveId {
                 ", login='" + login + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", ids count=" + ids.size() +
+                ", booked rooms count=" + bookedRooms.size() +
                 '}';
     }
 }

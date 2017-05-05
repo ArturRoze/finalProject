@@ -12,16 +12,15 @@ import static com.gojava.dao.Utils.provideIntInputStream;
 /**
  *
  */
-public class BookingMenu implements Interactive {
+public class UserBookingMenu implements Interactive {
 
     private User currentUser;
-    private String usersFullName = currentUser.getFirstName() + " " + currentUser.getLastName();
     private Interactive previousMenu;
     private UserService<User> userService = new UserServiceImpl();
     private RoomServiceImpl roomService = new RoomServiceImpl();
 
 
-    public BookingMenu(User currentUser, Interactive previousMenu) {
+    public UserBookingMenu(User currentUser, Interactive previousMenu) {
         this.currentUser = currentUser;
         this.previousMenu = previousMenu;
     }
@@ -30,9 +29,9 @@ public class BookingMenu implements Interactive {
     public void showMenu() {
         printBorder();
         System.out.println("Booking  menu");
+        System.out.println("3) Show all booked rooms on  " + currentUser.getLogin());
         System.out.println("1) Booking of room on users name");
         System.out.println("2) Un booking room");
-        System.out.println("3) Show all booked rooms on  " + usersFullName);
         System.out.println("4) Back to users menu");
         printBorder();
 
@@ -44,13 +43,14 @@ public class BookingMenu implements Interactive {
         } else {
             switch (selectedItem) {
                 case 1:
-                    bookRoomOnUsersName();
+                    showAllBookedRooms();
                     break;
                 case 2:
-                    unBookRoom();
+                    bookRoomOnUsersName();
                     break;
                 case 3:
-                    showAllBookedRooms();
+                    unBookRoom();
+                    break;
                 case 4:
                     previousMenu.showMenu();
                     break;
@@ -62,7 +62,7 @@ public class BookingMenu implements Interactive {
     }
 
     private void showAllBookedRooms() {
-        System.out.print(usersFullName + " room ids: ");
+        System.out.print(currentUser.getLogin() + " room ids: ");
         currentUser.getRooms().forEach(System.out::print);
         System.out.println();
         //todo

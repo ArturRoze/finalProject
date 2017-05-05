@@ -14,12 +14,12 @@ public final class Utils {
     }
 
     public static Integer provideIntInputStream() {
-        return provideIntInputStreamWithString("Select choice (confirm Enter): ");
+        return provideIntInputStreamWithMessage("Select choice (confirm Enter): ");
     }
 
     //TODO close streams
 
-    public static Integer provideIntInputStreamWithString(String message) {
+    public static Integer provideIntInputStreamWithMessage(String message) {
         System.out.print(message);
         String line;
         BufferedReader br;
@@ -97,11 +97,7 @@ public final class Utils {
         }
         return null;
     }
-    public static boolean validateString (String str) {
-        if (str == null || str.isEmpty() || str.length() < 3){
-            System.out.println("incorrect string: " + str);
-            return false;
-        }
-        return true;
+    public static boolean isValidString(String str) {
+        return (str != null || !str.isEmpty());
     }
 }
