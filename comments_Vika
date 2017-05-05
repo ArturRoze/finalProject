@@ -61,6 +61,8 @@ public class UserServiceImpl implements UserService<User> {
       
    }
    
+   The same about all classes with dependencies
+   
 12.
     
 
