@@ -1,5 +1,7 @@
 Comments:
 
+0. Comments 1. - 6. are valid for whole project.
+
 1. Please, use clean code practices
 
 2. In Main.main I see:
@@ -24,7 +26,8 @@ It would be better to write more specific exception class
 5. Always write at the left side interface/abstract class, for example:
 List<Person> persons = new ArrayList<>();
 
-6. Comments 1.-5. are valid for whole project.
+6. All void comments should be removed, for example:
+/** * */
 
 7.
 
