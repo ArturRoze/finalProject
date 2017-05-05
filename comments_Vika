@@ -35,5 +35,14 @@ cancelBookRoom
 
 8. Why interface HotelService is empty?
 
-9.
+9.  boolean unBookUser(Room aRoom);
+I think better name method is:
+cancelBookRoomByUser
+or unbookRoomByUser
+
+10. boolean bookUser(Room aRoom, User user);
+I think better name method is:
+bookRoomByUser
+
+11.
 
