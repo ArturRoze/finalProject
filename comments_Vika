@@ -9,4 +9,17 @@ mainMenu.startGame();
 If object is used at once, you do not need create separated variable for this object. So we can write:
 new MainMenu().startGame();
 
-3.
+3. In Main.main I see:
+catch (Exception e) {            
+e.printStackTrace();        
+}
+
+e.printStackTrace(); in catch is not informative, it would be better to write failure explanation, for example:
+System.out.println("Error with starting main menu");
+
+4. In Main.main I see:
+catch (Exception e) {
+It would be better to write more specific exception class
+
+5. 
+
