@@ -1,5 +1,7 @@
 package com.gojava.service.impl;
 
+import com.gojava.model.Crud;
+import com.gojava.model.Room;
 import com.gojava.service.HotelService;
 import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Hotel;
@@ -8,7 +10,8 @@ import java.util.Map;
 
 public class HotelServiceImpl implements HotelService<Hotel> {
 
-    private HotelService<Hotel> hotelDao = new HotelDaoImpl();
+    private Crud<Hotel> hotelDao = new HotelDaoImpl();
+
 
     @Override
     public Hotel create(Hotel hotel) {
@@ -16,7 +19,7 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Hotel update(Hotel hotel) {
+    public boolean update(Hotel hotel) {
         return hotelDao.update(hotel);
     }
 
@@ -28,5 +31,34 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     @Override
     public Map<Long, Hotel> getAll() {
        return hotelDao.getAll();
+    }
+
+    @Override
+    public Hotel findById(long id) {
+        return hotelDao.findById(id);
+    }
+
+    @Override
+    public Map<Long, Room> getAllHotelRooms(Hotel hotel) {
+        return hotel.getRooms();
+    }
+
+    @Override
+    public boolean isRoomNumberExistsInHotel(Integer number, Hotel hotel) {
+        return getAllHotelRooms(hotel).values().stream()
+                .anyMatch(room -> number.equals(room.getNumber()));
+    }
+
+    @Override
+    public Room addRoomToHotel(Room room, Hotel hotel) {
+        return getAllHotelRooms(hotel).put(room.getId(), room);
+    }
+
+    @Override
+    public Room findRoomByNumberInHotel(Integer number, Hotel hotel) {
+        return getAllHotelRooms(hotel).values().stream()
+                .filter(room -> number.equals(room.getNumber()))
+                .findFirst()
+                .get();
     }
 }

@@ -4,8 +4,12 @@ import com.gojava.model.Crud;
 import com.gojava.model.Room;
 import com.gojava.model.User;
 
-public interface RoomService<T extends Room> extends Crud<T> {
-    boolean bookUser(Room aRoom, User user);
+import java.util.Map;
 
-    boolean unBookUser(Room aRoom);
+public interface RoomService<T extends Room> extends Crud<T> {
+    boolean bookUser(Room room, User user);
+
+    boolean unBookUser(Room room);
+
+    Map<Long, Room> getAllHotelRooms(long hotelId);
 }

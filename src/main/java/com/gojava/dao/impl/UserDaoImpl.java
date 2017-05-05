@@ -14,9 +14,9 @@ public class UserDaoImpl implements Crud<User> {
     }
 
     @Override
-    public User update(User entity) {
+    public boolean update(User entity) {
         create(entity);
-        return entity;
+        return true;
     }
 
     @Override
@@ -27,6 +27,11 @@ public class UserDaoImpl implements Crud<User> {
     @Override
     public Map<Long, User> getAll() {
         return DataStorage.getInstance().getUsers();
+    }
+
+    @Override
+    public User findById(long id) {
+        return getAll().get(id);
     }
 
 

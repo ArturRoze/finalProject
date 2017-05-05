@@ -3,13 +3,10 @@ package com.gojava.controller.interactive;
 import com.gojava.dao.Utils;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
-import com.gojava.model.Room;
 import com.gojava.service.HotelService;
 import com.gojava.service.impl.HotelServiceImpl;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import static com.gojava.dao.Utils.*;
 
@@ -114,12 +111,12 @@ public class HotelsMenu implements Interactive {
     private void addHotel() {
 
         String name = provideStringInputStream("enter hotel name: ");
-        if (!Utils.validateString(name)) {
+        if (!Utils.isValidString(name)) {
             addHotel();
         }
 
         String city = provideStringInputStream("enter hotel city: ");
-        if (!Utils.validateString(city)) {
+        if (!Utils.isValidString(city)) {
             addHotel();
         }
 
@@ -136,13 +133,6 @@ public class HotelsMenu implements Interactive {
 
         hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
 
-        Set<Room> rooms = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
-            Room room = new Room(hotel.getName());
-            rooms.add(room);
-        }
-        hotel.setRooms(rooms);
-
         Hotel addedHotel = hotelService.create(hotel);
         System.out.println("added new hotel: " + addedHotel.toString());
         showMenu();
@@ -151,7 +141,7 @@ public class HotelsMenu implements Interactive {
     private void updateHotel() {
         hotelService.getAll().values().forEach(System.out::println);
 
-        Integer idChoose = provideIntInputStreamWithString("select hotel by id: ");
+        Integer idChoose = provideIntInputStreamWithMessage("select hotel by id: ");
         if (idChoose == null) {
             System.out.println("incorrect data");
             updateHotel();
@@ -165,12 +155,12 @@ public class HotelsMenu implements Interactive {
             updateHotel();
         }
         String nameHotel = provideStringInputStream("enter hotel name: ");
-        if (!Utils.validateString(nameHotel)) {
+        if (!isValidString(nameHotel)) {
             addHotel();
         }
 
         String cityName = provideStringInputStream("enter hotel city: ");
-        if (!Utils.validateString(cityName)) {
+        if (!isValidString(cityName)) {
             addHotel();
         }
 
@@ -183,7 +173,7 @@ public class HotelsMenu implements Interactive {
     private void deleteHotel() {
         hotelService.getAll().values().forEach(System.out::println);
 
-        Integer removeHotelId = provideIntInputStreamWithString("choose id hotel: ");
+        Integer removeHotelId = provideIntInputStreamWithMessage("choose id hotel: ");
         if (removeHotelId == null) {
             System.out.println("incorrect data");
             deleteHotel();
@@ -193,7 +183,7 @@ public class HotelsMenu implements Interactive {
         Hotel removedHotel = hotelService.getAll().remove(idHotel);
         if (removedHotel == null) {
             System.out.println("Hotel with this id isn't exist");
-        }else {
+        } else {
             System.out.println("This Hotel with id" + idHotel + "has been deleted");
         }
         showMenu();
@@ -209,12 +199,18 @@ public class HotelsMenu implements Interactive {
     }
 
     private void manageHotelRooms() {
-        System.out.print("Enter hotels id: ");
+        System.out.print("Enter hotel's id or press 'Enter' to return to menu: ");
         Integer selectedItem = provideIntInputStream();
 
-        Hotel hotel = null; //TODO find this hotel
+        if (selectedItem == null)
+            showMenu();
 
+        Hotel hotel = hotelService.findById(selectedItem);
 
+        if (hotel == null) {
+            System.out.println("Hotel with id " + selectedItem + " hasn't been found. Choose another id.");
+            manageHotelRooms();
+        }
         hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
         hotelRoomsMenu.showMenu();
     }

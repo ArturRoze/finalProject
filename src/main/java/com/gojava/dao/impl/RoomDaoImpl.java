@@ -1,5 +1,6 @@
 package com.gojava.dao.impl;
 
+import com.gojava.model.Crud;
 import com.gojava.service.HotelService;
 import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
@@ -9,41 +10,41 @@ import com.gojava.model.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomDaoImpl implements RoomService<Room> {
+public class RoomDaoImpl implements Crud<Room> {
 
-    private HotelService<Hotel> hotelDao = new HotelDaoImpl();
+    private Crud<Hotel> hotelDao = new HotelDaoImpl();
 
     @Override
     public Room create(Room entity) {
-        return null;
+        hotelDao
+                .findById(entity.getHotel().getId())
+                .getRooms()
+                .put(entity.getId(), entity);
+        return entity;
     }
 
     @Override
-    public Room update(Room entity) {
-        return null;
+    public boolean update(Room entity) {
+        create(entity);
+        return true;
     }
 
     @Override
     public Room delete(Room entity) {
-        return entity;
+        return getAll().remove(entity.getId());
     }
 
     @Override
     public Map<Long, Room> getAll() {
         Map<Long, Room> map = new HashMap<>();
-        hotelDao.getAll().values()
-                .forEach(hotel -> hotel.getRooms()
-                        .forEach(room -> map.put(room.getId(), room)));
+        hotelDao.getAll().forEach((id, hotel) -> map.putAll(hotel.getRooms()));
         return map;
     }
 
     @Override
-    public boolean bookUser(Room aRoom, User user) {
-        return false;
+    public Room findById(long id) {
+        return getAll().get(id);
     }
 
-    @Override
-    public boolean unBookUser(Room aRoom) {
-        return false;
-    }
+
 }

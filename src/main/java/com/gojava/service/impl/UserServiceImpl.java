@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService<User> {
     }
 
     @Override
-    public User update(User entity) {
+    public boolean update(User entity) {
         return userDaoImpl.update(entity);
     }
 
@@ -33,9 +33,10 @@ public class UserServiceImpl implements UserService<User> {
     }
 
     @Override
-    public User findById(Long id) {
-        return userDaoImpl.getAll().get(id);
+    public User findById(long id) {
+        return userDaoImpl.findById(id);
     }
+
 
     @Override
     public boolean isLoginExists(String login) {

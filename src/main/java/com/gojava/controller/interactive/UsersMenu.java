@@ -16,17 +16,17 @@ public class UsersMenu implements Interactive {
         this.previousMenu = interactive;
     }
 
-    private BookingMenu bookingMenu;
+    private UserBookingMenu bookingMenu;
 
 
     @Override
     public void showMenu() {
         printBorder();
         System.out.println("Users Menu");
+        System.out.println("4) Show all users");
         System.out.println("1) Add user");
         System.out.println("2) Update user");
         System.out.println("3) Delete user");
-        System.out.println("4) Show all users");
         System.out.println("5) Booking menu");
         System.out.println("6) Back to main menu");
         printBorder();
@@ -39,16 +39,16 @@ public class UsersMenu implements Interactive {
         } else {
             switch (selectedItem) {
                 case 1:
-                    createUser();
+                    showAllUsers();
                     break;
                 case 2:
-                    updateUser();
+                    createUser();
                     break;
                 case 3:
-                    deleteUser();
+                    updateUser();
                     break;
                 case 4:
-                    showAllUsers();
+                    deleteUser();
                     break;
                 case 5:
                     toBookingMenu();
@@ -61,6 +61,15 @@ public class UsersMenu implements Interactive {
                     showMenu();
             }
         }
+    }
+
+    private void showAllUsers() {
+        System.out.println("Count of users: " + userService.getAll().size());
+        if (userService.getAll().isEmpty()) {
+            showMenu();
+        } else
+            userService.getAll().values().forEach(System.out::println);
+        showMenu();
     }
 
 
@@ -87,14 +96,6 @@ public class UsersMenu implements Interactive {
         showMenu();
     }
 
-    private void showAllUsers() {
-        System.out.println("Count of users: " + userService.getAll().size());
-        if (userService.getAll().isEmpty()) {
-            showMenu();
-        } else
-            userService.getAll().values().forEach(System.out::println);
-        showMenu();
-    }
 
     private void updateUser() {
 
@@ -135,21 +136,23 @@ public class UsersMenu implements Interactive {
         User userToBook = userService.findById(usersId);
 
         if (userToBook != null)
-            bookingMenu = new BookingMenu(userToBook, this);
+            bookingMenu = new UserBookingMenu(userToBook, this);
         else
             bookingMenu.showMenu();
     }
 
     private long enterUsersId() {
+
+        //TODO not pretty
         Integer idUser = null;
 
-        idUser = provideIntInputStreamWithString("Enter id of user: ");
+        idUser = provideIntInputStreamWithMessage("Enter id of user: ");
         if (idUser == null) {
             System.out.println("Incorrect input. Please try again");
             showMenu();
         } else {
             try {
-                // todo pars
+                // todo parse
             } catch (NumberFormatException e) {
                 return -1;
             }
