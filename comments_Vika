@@ -1,6 +1,6 @@
 Comments:
 
-0. Comments 1. - 6. are valid for whole project.
+0. Comments 1.-6. are valid for whole project.
 
 1. Please, use clean code practices
 
@@ -29,5 +29,9 @@ List<Person> persons = new ArrayList<>();
 6. All void comments should be removed, for example:
 /** * */
 
-7.
+7. boolean removeBookRoom(Room room);
+I think better name method is:
+cancelBookRoom
+
+8. 
 
