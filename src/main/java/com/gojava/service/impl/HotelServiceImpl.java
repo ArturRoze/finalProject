@@ -7,11 +7,12 @@ import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class HotelServiceImpl implements HotelService<Hotel> {
 
     private Crud<Hotel> hotelDao = new HotelDaoImpl();
-
 
     @Override
     public Hotel create(Hotel hotel) {
@@ -39,6 +40,11 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
+    public Set<Hotel> getAllHotels() {
+        return getAll().values().stream().collect(Collectors.toSet());
+    }
+
+    @Override
     public Map<Long, Room> getAllHotelRooms(Hotel hotel) {
         return hotel.getRooms();
     }
@@ -60,5 +66,15 @@ public class HotelServiceImpl implements HotelService<Hotel> {
                 .filter(room -> number.equals(room.getNumber()))
                 .findFirst()
                 .get();
+    }
+
+    @Override
+    public Set<Hotel> findHotelsByCity(String city, Set<Hotel> hotels) {
+        return hotels.stream().filter(hotel -> city.equals(hotel.getCity())).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Hotel> findHotelsByName(String name, Set<Hotel> hotels) {
+        return hotels.stream().filter(hotel -> name.equals(hotel.getCity())).collect(Collectors.toSet());
     }
 }

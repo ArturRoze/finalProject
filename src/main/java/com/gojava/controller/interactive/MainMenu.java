@@ -17,7 +17,6 @@ public class MainMenu implements Interactive {
 
     @Override
     public void showMenu() {
-        //TODO check why pops up exception stack trace
 
         printBorder();
         System.out.println("Main Menu");
