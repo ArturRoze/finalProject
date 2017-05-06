@@ -18,7 +18,7 @@ public class Room implements Serializable, HaveId {
     private Hotel hotel;
     private int number;
     private boolean available;
-    private User bookedUser;
+    private String bookedUserName;
 
     public Room(Hotel hotel, int number) {
         id = IdGenerator.getRandomId();
@@ -36,8 +36,8 @@ public class Room implements Serializable, HaveId {
         this.available = available;
     }
 
-    public void setBookedUser(User bookedUser) {
-        this.bookedUser = bookedUser;
+    public void setBookedUserName(String bookedUserName) {
+        this.bookedUserName = bookedUserName;
     }
 
 
@@ -58,8 +58,8 @@ public class Room implements Serializable, HaveId {
         return available;
     }
 
-    public User getBookedUser() {
-        return bookedUser;
+    public String getBookedUserName() {
+        return bookedUserName;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Room implements Serializable, HaveId {
         if (getNumber() != room.getNumber()) return false;
         if (isAvailable() != room.isAvailable()) return false;
         if (getHotel() != null ? !getHotel().equals(room.getHotel()) : room.getHotel() != null) return false;
-        return getBookedUser() != null ? getBookedUser().equals(room.getBookedUser()) : room.getBookedUser() == null;
+        return getBookedUserName() != null ? getBookedUserName().equals(room.getBookedUserName()) : room.getBookedUserName() == null;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Room implements Serializable, HaveId {
         result = 31 * result + (getHotel() != null ? getHotel().hashCode() : 0);
         result = 31 * result + getNumber();
         result = 31 * result + (isAvailable() ? 1 : 0);
-        result = 31 * result + (getBookedUser() != null ? getBookedUser().hashCode() : 0);
+        result = 31 * result + (getBookedUserName() != null ? getBookedUserName().hashCode() : 0);
         return result;
     }
 
@@ -93,7 +93,7 @@ public class Room implements Serializable, HaveId {
                 ", hotel=" + hotel.getName() +
                 ", number=" + number +
                 ", available=" + available +
-                ", bookedUser=" + bookedUser +
+                ", bookedUserName=" + bookedUserName +
                 '}';
     }
 }
