@@ -5,6 +5,8 @@ import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.impl.UserServiceImpl;
 
+import java.util.TreeSet;
+
 import static com.gojava.dao.Utils.*;
 
 public class UsersMenu implements Interactive {
@@ -68,7 +70,7 @@ public class UsersMenu implements Interactive {
         if (userService.getAll().isEmpty()) {
             showMenu();
         } else
-            userService.getAll().values().forEach(System.out::println);
+            new TreeSet<>(userService.getAll().values()).forEach(System.out::println);
         showMenu();
     }
 
@@ -119,7 +121,7 @@ public class UsersMenu implements Interactive {
             String newLastName = provideStringInputStream("Enter new last name: ");
             userToUpdate.setFirstName(newFirstName);
             userToUpdate.setLastName(newLastName);
-            System.out.println("This user with " + userLogin + " changed");
+            System.out.println("This user with login = " + userLogin + " changed");
         }
         showMenu();
     }
@@ -132,7 +134,7 @@ public class UsersMenu implements Interactive {
             showMenu();
 
         if (!userService.isLoginExists(userLogin)) {
-            System.out.println("User with login " + userLogin + " doesn't exist. Please choose another login.");
+            System.out.println("User with login = " + userLogin + " doesn't exist. Please choose another login.");
             toBookingMenu();
         }
 

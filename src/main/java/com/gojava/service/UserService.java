@@ -10,7 +10,10 @@ import com.gojava.model.User;
 public interface UserService<T extends User> extends Crud<T> {
 
     boolean isLoginExists(String login);
-    boolean bookRoom(Room room, User user);
-    boolean unBookRoom(Room room, User user);
+
+    boolean bookRoomOnUser(Room room, User user);
+
+    boolean unBookRoomFromUser(Room room, User user);
+
     User findUserByLogin(String login);
 }

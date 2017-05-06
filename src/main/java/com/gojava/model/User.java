@@ -11,7 +11,7 @@ import java.util.Set;
  * @version 1.0
  */
 
-public class User implements Serializable, HaveId {
+public class User implements Serializable, HaveId, Comparable<User> {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,10 +57,6 @@ public class User implements Serializable, HaveId {
         return bookedRoomIds;
     }
 
-    public void setRooms(Set<Long> rooms) {
-        this.bookedRoomIds = rooms;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,12 +85,14 @@ public class User implements Serializable, HaveId {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", booked rooms count=" + bookedRoomIds.size() +
-                '}';
+        return  "User: first name: " + firstName +
+                ", last name: " + lastName +
+                ", login: " + login +
+                ", id = " + id;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return login.compareTo(o.getLogin());
     }
 }

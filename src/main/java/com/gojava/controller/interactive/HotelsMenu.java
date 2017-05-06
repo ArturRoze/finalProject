@@ -7,6 +7,7 @@ import com.gojava.service.HotelService;
 import com.gojava.service.impl.HotelServiceImpl;
 
 import java.util.Optional;
+import java.util.TreeSet;
 
 import static com.gojava.dao.Utils.*;
 
@@ -24,11 +25,11 @@ public class HotelsMenu implements Interactive {
     public void showMenu() {
         printBorder();
         System.out.println("Users menu");
-        System.out.println("1) Add hotel");
-        System.out.println("2) Update hotel");
-        System.out.println("3) Delete hotel");
-        System.out.println("4) Find hotel");
-        System.out.println("5) Show all hotels");
+        System.out.println("1) Show all hotels");
+        System.out.println("2) Add hotel");
+        System.out.println("3) Update hotel");
+        System.out.println("4) Delete hotel");
+        System.out.println("5) Find hotel");
         System.out.println("6) Manage hotel rooms");
         System.out.println("7) Back to main menu");
         printBorder();
@@ -41,19 +42,19 @@ public class HotelsMenu implements Interactive {
         } else {
             switch (selectedItem) {
                 case 1:
-                    addHotel();
+                    showAllHotels();
                     break;
                 case 2:
-                    updateHotel();
+                    addHotel();
                     break;
                 case 3:
-                    deleteHotel();
+                    updateHotel();
                     break;
                 case 4:
-                    findHotel();
+                    deleteHotel();
                     break;
                 case 5:
-                    showAllHotels();
+                    findHotel();
                     break;
                 case 6:
                     manageHotelRooms();
@@ -194,7 +195,7 @@ public class HotelsMenu implements Interactive {
         if (hotelService.getAll().isEmpty()) {
             showMenu();
         } else
-            hotelService.getAll().values().forEach(System.out::println);
+            new TreeSet<>(hotelService.getAll().values()).forEach(System.out::println);
         showMenu();
     }
 

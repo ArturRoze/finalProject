@@ -52,7 +52,7 @@ public class RoomServiceImpl implements RoomService<Room> {
     }
 
     @Override
-    public boolean unBookUser(Room room) {
+    public boolean unBookUserFromRoom(Room room) {
         room.setAvailable(true);
         room.setBookedUserName(null);
         return true;
