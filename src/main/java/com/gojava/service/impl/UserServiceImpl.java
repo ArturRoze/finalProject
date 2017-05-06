@@ -44,15 +44,13 @@ public class UserServiceImpl implements UserService<User> {
     }
 
     @Override
-    public boolean bookRoom(Room room, User user) {
-        //TODO
+    public boolean bookRoomOnUser(Room room, User user) {
         user.getBookedRoomIds().add(room.getId());
         return true;
     }
 
     @Override
-    public boolean unBookRoom(Room room, User user) {
-        //TODO
+    public boolean unBookRoomFromUser(Room room, User user) {
         user.getBookedRoomIds().remove(room.getId());
         return true;
     }

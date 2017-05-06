@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 
-public class Room implements Serializable, HaveId {
+public class Room implements Serializable, HaveId, Comparable<Room> {
 
     private static final long serialVersionUID = 1L;
 
@@ -88,12 +88,20 @@ public class Room implements Serializable, HaveId {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", hotel=" + hotel.getName() +
-                ", number=" + number +
-                ", available=" + available +
-                ", bookedUserName=" + bookedUserName +
-                '}';
+        return "Room №" + number +
+                ", in " + hotel.getName() + " hotel, in " + hotel.getCity() +
+                " city, Id = " + id +
+                (isAvailable() ? ", available" : (", booked by " + bookedUserName));
+    }
+
+
+    @Override
+    public int compareTo(Room o) {
+        if (!hotel.getCity().equals(o.getHotel().getCity())){
+            return hotel.getCity().compareTo(o.getHotel().getCity());
+        } else if (!hotel.getName().equals(o.getHotel().getName())){
+            return hotel.getName().compareTo(o.getHotel().getName());
+        }
+        return Integer.compare(number, o.getNumber());
     }
 }

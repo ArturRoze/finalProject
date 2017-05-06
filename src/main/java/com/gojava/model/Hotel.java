@@ -13,7 +13,7 @@ import java.util.Set;
  * @version 1.0
  */
 
-public class Hotel implements Serializable, HaveId {
+public class Hotel implements Serializable, HaveId, Comparable<Hotel> {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,11 +81,16 @@ public class Hotel implements Serializable, HaveId {
 
     @Override
     public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", rooms count=" + rooms.size() +
-                '}';
+        return  "Hotel: " + name +
+                ", in " + city +
+                " city, count of rooms: " +rooms.size() +
+                ", id = " + id;
+    }
+
+    @Override
+    public int compareTo(Hotel o) {
+        if (!city.equals(o.getCity()))
+            return city.compareTo(o.getCity());
+        return name.compareTo(o.getName());
     }
 }

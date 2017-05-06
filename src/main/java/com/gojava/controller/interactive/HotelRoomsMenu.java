@@ -6,6 +6,8 @@ import com.gojava.model.Room;
 import com.gojava.service.HotelService;
 import com.gojava.service.impl.HotelServiceImpl;
 
+import java.util.TreeSet;
+
 import static com.gojava.dao.Utils.*;
 
 /**
@@ -26,7 +28,7 @@ public class HotelRoomsMenu implements Interactive {
     @Override
     public void showMenu() {
         printBorder();
-        System.out.println("Hotel " + currentHotel + " menu");
+        System.out.println(currentHotel);
         System.out.println("1) Show all rooms");
         System.out.println("2) Add room to hotel");
         System.out.println("3) Manage room");
@@ -64,7 +66,7 @@ public class HotelRoomsMenu implements Interactive {
         if (currentHotel.getRooms().values().isEmpty()) {
             showMenu();
         } else
-            currentHotel.getRooms().values().forEach(System.out::println);
+            new TreeSet<>(currentHotel.getRooms().values()).forEach(System.out::println);
         showMenu();
     }
 
