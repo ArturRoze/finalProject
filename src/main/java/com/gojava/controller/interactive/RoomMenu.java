@@ -43,6 +43,7 @@ public class RoomMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.err.println("not correct entered data, try again");
@@ -72,6 +73,7 @@ public class RoomMenu implements Interactive {
     }
 
     private void updateRoom() {
+
         Integer roomNumber = provideIntInputStreamWithMessage("Enter new room number or press 'Enter' to return to menu: ");
 
         if (roomNumber == null)

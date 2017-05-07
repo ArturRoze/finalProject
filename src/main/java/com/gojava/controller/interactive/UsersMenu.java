@@ -31,6 +31,7 @@ public class UsersMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.out.println("Incorrect input. Please try again");
@@ -63,6 +64,7 @@ public class UsersMenu implements Interactive {
     }
 
     private void showAllUsers() {
+
         System.out.println("Count of users: " + userService.getAll().size());
         if (userService.getAll().isEmpty()) {
             showMenu();

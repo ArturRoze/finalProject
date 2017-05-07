@@ -36,6 +36,7 @@ public class HotelRoomsMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.err.println("not correct entered data, try again");
@@ -62,6 +63,7 @@ public class HotelRoomsMenu implements Interactive {
     }
 
     private void showAllRooms() {
+
         System.out.println("Count of rooms: " + currentHotel.getRooms().values().size());
         if (currentHotel.getRooms().values().isEmpty()) {
             showMenu();
@@ -99,7 +101,7 @@ public class HotelRoomsMenu implements Interactive {
             System.out.println("Room with number = " + roomNumber + " doesn't exist in this hotel. Choose another number");
             manageRoom();
         } else
-        roomMenu = new RoomMenu(room, this);
+            roomMenu = new RoomMenu(room, this);
         roomMenu.showMenu();
     }
 }

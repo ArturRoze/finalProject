@@ -41,23 +41,6 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Set<Hotel> getAllHotels() {
-
-        //TODO why does not work?
-
-        Set<Hotel> hotels = new HashSet<>(getAll().values());
-
-        return hotels;
-
-//        getAll().values().forEach(hotels::add);
-//
-//        return getAll()
-//                .values()
-//                .stream()
-//                .collect(Collectors.toSet());
-    }
-
-    @Override
     public Map<Long, Room> getAllHotelRooms(Hotel hotel) {
         return hotel.getRooms();
     }
@@ -69,10 +52,22 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
+    public boolean isHotelNameExists(String name) {
+        return getAll().values().stream()
+                .anyMatch(hotel -> hotel.getName().equals(name));
+    }
+
+    @Override
     public boolean isHotelExistsInCity(String hotelName, String city) {
         return getAll().values().stream()
                 .filter(hotel -> hotel.getCity().equals(city))
                 .anyMatch(hotel -> hotel.getName().equals(hotelName));
+    }
+
+    @Override
+    public boolean isCityContainsHotels(String city) {
+        return getAll().values().stream()
+                .anyMatch(hotel -> hotel.getCity().equals(city));
     }
 
     @Override
@@ -89,17 +84,13 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Set<Hotel> findHotelsByCity(String city, Set<Hotel> hotels) {
-        return hotels.stream()
-                .filter(hotel -> city.equals(hotel.getCity()))
-                .collect(Collectors.toSet());
-    }
+    public Hotel findHotelByNameInCity(String name, String city) {
 
-    @Override
-    public Set<Hotel> findHotelsByName(String name, Set<Hotel> hotels) {
-        return hotels.stream()
-                .filter(hotel -> name.equals(hotel.getCity()))
-                .collect(Collectors.toSet());
+        return getAll().values().stream()
+                .filter(hotel -> city.equals(hotel.getCity()))
+                .filter(hotel -> name.equals(hotel.getName()))
+                .findFirst()
+                .get();
     }
 
 }
