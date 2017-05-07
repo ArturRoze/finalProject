@@ -15,6 +15,8 @@ public interface HotelService<T extends Hotel> extends Crud<T> {
 
     boolean isRoomNumberExistsInHotel(Integer number, Hotel hotel);
 
+    boolean isHotelExistsInCity(String hotelName, String city);
+
     Room addRoomToHotel (Room room, Hotel hotel);
 
     Room findRoomByNumberInHotel(Integer number, Hotel hotel);

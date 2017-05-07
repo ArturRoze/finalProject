@@ -11,8 +11,6 @@ import static com.gojava.dao.Utils.provideIntInputStream;
 public class MainMenu implements Interactive {
 
     private final static String FILE_NAME = "file.txt";
-    private HotelsMenu hotelInteractive = new HotelsMenu(this);
-    private UsersMenu usersMenu = new UsersMenu(this);
     private FileManager fileManager = new FileManagerImpl();
 
     @Override
@@ -33,10 +31,10 @@ public class MainMenu implements Interactive {
         } else {
             switch (selectedItem) {
                 case 1:
-                    hotelInteractive.showMenu();
+                    new HotelsMenu(this).showMenu();
                     break;
                 case 2:
-                    usersMenu.showMenu();
+                    new UsersMenu(this).showMenu();
                     break;
                 case 3:
                     fileManager.writeData(DataStorage.getInstance(), FILE_NAME);

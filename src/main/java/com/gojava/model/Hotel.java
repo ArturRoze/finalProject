@@ -81,9 +81,9 @@ public class Hotel implements Serializable, HaveId, Comparable<Hotel> {
 
     @Override
     public String toString() {
-        return  "Hotel: " + name +
-                ", in " + city +
-                " city, count of rooms: " +rooms.size() +
+        return  "Hotel: '" + name +
+                "', in '" + city +
+                "' city, count of rooms: " +rooms.size() +
                 ", id = " + id;
     }
 

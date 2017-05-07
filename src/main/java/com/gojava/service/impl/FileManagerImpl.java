@@ -8,8 +8,7 @@ public class FileManagerImpl implements FileManager {
 
     @Override
     public DataStorage readData(String str) {
-        DataStorage testFile = Utils.readFile(str);
-        return testFile;
+        return Utils.readFile(str);
     }
 
     @Override
