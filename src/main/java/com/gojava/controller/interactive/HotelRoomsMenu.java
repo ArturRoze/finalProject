@@ -20,7 +20,7 @@ public class HotelRoomsMenu implements Interactive {
     private Interactive roomMenu;
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
-    public HotelRoomsMenu(Hotel currentHotel, Interactive previousMenu) {
+    HotelRoomsMenu(Hotel currentHotel, Interactive previousMenu) {
         this.currentHotel = currentHotel;
         this.previousMenu = previousMenu;
     }
@@ -36,6 +36,7 @@ public class HotelRoomsMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.err.println("not correct entered data, try again");
@@ -62,6 +63,7 @@ public class HotelRoomsMenu implements Interactive {
     }
 
     private void showAllRooms() {
+
         System.out.println("Count of rooms: " + currentHotel.getRooms().values().size());
         if (currentHotel.getRooms().values().isEmpty()) {
             showMenu();
@@ -82,13 +84,8 @@ public class HotelRoomsMenu implements Interactive {
         } else {
             Room room = new Room(currentHotel, roomNumber);
             hotelService.addRoomToHotel(room, currentHotel);
-        }
-
-        String choice = provideStringInputStream("Enter 'y' if you want to add another room: ");
-        if (!isValidString(choice) && !choice.toLowerCase().equals("y"))
-            showMenu();
-        else
             addRoom();
+        }
     }
 
     private void manageRoom() {
@@ -104,7 +101,7 @@ public class HotelRoomsMenu implements Interactive {
             System.out.println("Room with number = " + roomNumber + " doesn't exist in this hotel. Choose another number");
             manageRoom();
         } else
-        roomMenu = new RoomMenu(room, this);
+            roomMenu = new RoomMenu(room, this);
         roomMenu.showMenu();
     }
 }

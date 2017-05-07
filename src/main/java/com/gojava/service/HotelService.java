@@ -9,17 +9,19 @@ import java.util.Set;
 
 public interface HotelService<T extends Hotel> extends Crud<T> {
 
-    Set<T> getAllHotels();
-
     Map<Long, Room> getAllHotelRooms (Hotel hotel);
 
     boolean isRoomNumberExistsInHotel(Integer number, Hotel hotel);
+
+    boolean isHotelNameExists(String name);
+
+    boolean isHotelExistsInCity(String hotelName, String city);
+
+    boolean isCityContainsHotels(String city);
 
     Room addRoomToHotel (Room room, Hotel hotel);
 
     Room findRoomByNumberInHotel(Integer number, Hotel hotel);
 
-    Set<T> findHotelsByCity(String city, Set<T> hotels);
-
-    Set<T> findHotelsByName(String name, Set<T> hotels);
+    T findHotelByNameInCity(String name, String city);
 }

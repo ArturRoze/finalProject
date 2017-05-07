@@ -25,7 +25,7 @@ public class RoomMenu implements Interactive {
     private UserService<User> userService = new UserServiceImpl();
 
 
-    public RoomMenu(Room currentRoom, Interactive previousMenu) {
+    RoomMenu(Room currentRoom, Interactive previousMenu) {
         this.currentRoom = currentRoom;
         this.previousMenu = previousMenu;
     }
@@ -43,6 +43,7 @@ public class RoomMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.err.println("not correct entered data, try again");
@@ -72,6 +73,7 @@ public class RoomMenu implements Interactive {
     }
 
     private void updateRoom() {
+
         Integer roomNumber = provideIntInputStreamWithMessage("Enter new room number or press 'Enter' to return to menu: ");
 
         if (roomNumber == null)
@@ -82,8 +84,9 @@ public class RoomMenu implements Interactive {
             showMenu();
         } else if (hotelService.isRoomNumberExistsInHotel(roomNumber, currentRoom.getHotel())) {
             System.out.println("Room №" + roomNumber + " already exists in " + currentRoom.getHotel());
+            updateRoom();
         } else {
-            System.out.println("Room number was changed from " + currentRoom.getNumber() + " to " +roomNumber);
+            System.out.println("Room number was changed from " + currentRoom.getNumber() + " to " + roomNumber);
             currentRoom.setNumber(roomNumber);
             showMenu();
         }
@@ -124,6 +127,7 @@ public class RoomMenu implements Interactive {
         if (userLogin != null) {
             userService.bookRoomOnUser(currentRoom, currentUser);
             roomService.bookUser(currentRoom, currentUser);
+            System.out.println(currentRoom + " has been booked by " + currentUser.getLogin());
             showMenu();
         }
     }

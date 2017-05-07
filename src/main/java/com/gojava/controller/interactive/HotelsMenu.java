@@ -9,6 +9,7 @@ import com.gojava.service.impl.HotelServiceImpl;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import static com.gojava.dao.Utils.*;
 
@@ -18,7 +19,7 @@ public class HotelsMenu implements Interactive {
     private HotelRoomsMenu hotelRoomsMenu;
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
-    public HotelsMenu(Interactive interactive) {
+    HotelsMenu(Interactive interactive) {
         this.previousMenu = interactive;
     }
 
@@ -36,6 +37,7 @@ public class HotelsMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.err.println("not correct entered data, try again");
@@ -70,7 +72,7 @@ public class HotelsMenu implements Interactive {
         }
     }
 
-    public void findHotel() {
+    private void findHotel() {
         System.out.println("1) Find hotel by name");
         System.out.println("2) Find hotel by city");
         System.out.println("3) Return to Hotels menu");
@@ -98,38 +100,9 @@ public class HotelsMenu implements Interactive {
         }
     }
 
-    public void findHotelByName() {
+    private void findHotelByName() {
 
-        Set<Hotel> result = hotelService.getAllHotels();
-
-        if (result.isEmpty()) {
-            System.out.println("There is no registered hotel in the system.");
-            showMenu();
-        }
-
-        String city = provideStringInputStream("Enter city name or press 'Enter' to return to menu: ");
-
-        if (!isValidString(city))
-            showMenu();
-
-        result = hotelService.findHotelsByCity(city, result);
-
-        if (result.isEmpty()) {
-            System.out.println("There is no hotels in " + city);
-            showMenu();
-        } else {
-            System.out.println("Hotels in " +city+ ": ");
-            result.forEach(System.out::println);
-            showMenu();
-        }
-
-    }
-
-    public void findHotelByCity() {
-
-        Set<Hotel> result = hotelService.getAllHotels();
-
-        if (result.isEmpty()) {
+        if (hotelService.getAll().isEmpty()) {
             System.out.println("There is no registered hotel in the system.");
             showMenu();
         }
@@ -139,19 +112,48 @@ public class HotelsMenu implements Interactive {
         if (!isValidString(name))
             showMenu();
 
-        result = hotelService.findHotelsByName(name, result);
-
-        if (result.isEmpty()) {
+        if (!hotelService.isHotelNameExists(name)) {
             System.out.println("There is no hotels named '" + name + "'");
             showMenu();
         } else {
-            System.out.println("Hotels named '" +name+ "': ");
-            result.forEach(System.out::println);
+            System.out.println("Hotels named '" + name + "': ");
+
+            hotelService.getAll().values().stream()
+                    .filter(hotel -> hotel.getName().equals(name))
+                    .forEach(System.out::println);
+
+            showMenu();
+        }
+    }
+
+    private void findHotelByCity() {
+
+        if (hotelService.getAll().isEmpty()) {
+            System.out.println("There is no registered hotel in the system.");
+            showMenu();
+        }
+
+        String city = provideStringInputStream("Enter hotel city or press 'Enter' to return to menu: ");
+
+        if (!isValidString(city))
+            showMenu();
+
+        if (!hotelService.isCityContainsHotels(city)) {
+            System.out.println("There is no hotels in " + city);
+            showMenu();
+        } else {
+            System.out.println("Hotels in " + city + ": ");
+
+            hotelService.getAll().values().stream()
+                    .filter(hotel -> hotel.getCity().equals(city))
+                    .forEach(System.out::println);
+
             showMenu();
         }
     }
 
     private void showAllHotels() {
+
         System.out.println("Count of hotels: " + hotelService.getAll().size());
         if (hotelService.getAll().isEmpty()) {
             showMenu();
@@ -162,62 +164,63 @@ public class HotelsMenu implements Interactive {
 
     private void addHotel() {
 
-        String name = provideStringInputStream("enter hotel name: ");
-        if (!isValidString(name)) {
-            addHotel();
-        }
-
-        String city = provideStringInputStream("enter hotel city: ");
+        String city = provideStringInputStream("Enter hotel city or press 'Enter' to return to menu: : ");
         if (!isValidString(city)) {
             addHotel();
         }
 
-        Optional<Hotel> first = hotelService.getAll().values().stream()
-                .filter(s -> s.getCity().equals(city))
-                .filter(s -> s.getName().equals(name))
-                .findFirst();
+        String name = provideStringInputStream("Enter hotel name or press 'Enter' to return to menu: : ");
+        if (!isValidString(name)) {
+            addHotel();
+        }
 
-        if (first.isPresent()) {
-            System.out.println("This hotel in this city already exist");
+        if (hotelService.isHotelExistsInCity(name, city)) {
+            System.out.println("Hotel '" + name + "' in " + city + " city already exists");
             addHotel();
         }
 
         Hotel hotel = new Hotel(name, city);
 
-        hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
-
         Hotel addedHotel = hotelService.create(hotel);
-        System.out.println("added new hotel: " + addedHotel.toString());
+
+        hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
+        hotelRoomsMenu.showMenu();
+
+        System.out.println("Added new hotel: " + addedHotel.toString());
         showMenu();
     }
 
     private void updateHotel() {
 
-        Integer idChoose = provideIntInputStreamWithMessage("select hotel by id: ");
+        Integer idChoose = provideIntInputStreamWithMessage("Select hotel by id or press 'Enter' to return to menu: ");
+
         if (idChoose == null) {
-            System.out.println("incorrect data");
-            updateHotel();
+            showMenu();
         }
 
+        Hotel hotel = hotelService.findById(idChoose);
 
-        Hotel hotel = hotelService.getAll().get(idChoose);
         if (hotel == null) {
-            System.out.println("Incorrect data. Please try again");
+            System.out.println("Hotel with id = " + idChoose + " doesn't exist. Please choose another id.");
             updateHotel();
-        }
-        String nameHotel = provideStringInputStream("enter hotel name: ");
-        if (!isValidString(nameHotel)) {
-            addHotel();
+        } else {
+            printBorder();
+            System.out.println(hotel);
         }
 
-        String cityName = provideStringInputStream("enter hotel city: ");
+        String nameHotel = provideStringInputStream("Enter new hotel's name or press 'Enter' to return to menu: ");
+        if (!isValidString(nameHotel)) {
+            showMenu();
+        }
+
+        String cityName = provideStringInputStream("Enter new hotel's city or press 'Enter' to return to menu: ");
         if (!isValidString(cityName)) {
-            addHotel();
+            showMenu();
         }
 
         hotel.setName(nameHotel);
         hotel.setCity(cityName);
-        System.out.println("changed hotel's parameters id: " + idChoose);
+        System.out.println("Hotel has been changed to " + hotel);
         showMenu();
     }
 
@@ -228,20 +231,20 @@ public class HotelsMenu implements Interactive {
         if (removeHotelId == null)
             showMenu();
 
-        long idHotel = removeHotelId.longValue();
-
-        Hotel removedHotel = hotelService.getAll().remove(idHotel);
+        Hotel removedHotel = hotelService.findById(removeHotelId);
 
         if (removedHotel == null) {
             System.out.println("Hotel with this id doesn't exist");
         } else {
-            System.out.println("This Hotel with id " + idHotel + " has been deleted");
+            hotelService.delete(removedHotel);
+            System.out.println("This Hotel with id " + removeHotelId + " has been deleted");
         }
         showMenu();
     }
 
 
     private void manageHotelRooms() {
+
         Integer selectedItem = provideIntInputStreamWithMessage("Enter hotel's id or press 'Enter' to return to menu: ");
 
         if (selectedItem == null)
@@ -253,9 +256,7 @@ public class HotelsMenu implements Interactive {
             System.out.println("Hotel with id " + selectedItem + " hasn't been found. Choose another id.");
             manageHotelRooms();
         }
-        hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
-        hotelRoomsMenu.showMenu();
+
+        new HotelRoomsMenu(hotel, this).showMenu();
     }
-
-
 }

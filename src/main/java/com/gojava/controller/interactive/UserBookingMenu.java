@@ -10,6 +10,7 @@ import com.gojava.service.impl.HotelServiceImpl;
 import com.gojava.service.impl.RoomServiceImpl;
 import com.gojava.service.impl.UserServiceImpl;
 
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static com.gojava.dao.Utils.*;
@@ -27,7 +28,7 @@ public class UserBookingMenu implements Interactive {
     private RoomServiceImpl roomService = new RoomServiceImpl();
 
 
-    public UserBookingMenu(User currentUser, Interactive previousMenu) {
+    UserBookingMenu(User currentUser, Interactive previousMenu) {
         this.currentUser = currentUser;
         this.previousMenu = previousMenu;
     }
@@ -36,8 +37,8 @@ public class UserBookingMenu implements Interactive {
     public void showMenu() {
         printBorder();
         System.out.println("Booking  menu");
-        System.out.println("1) Show all booked rooms ids on  " + currentUser.getLogin());
-        System.out.println("2) Show all booked rooms on  " + currentUser.getLogin());
+        System.out.println("1) Show all booked rooms ids on " + currentUser.getLogin());
+        System.out.println("2) Show all booked rooms on " + currentUser.getLogin());
         System.out.println("3) Book room on users name");
         System.out.println("4) Find and book room on users name");
         System.out.println("5) Un book room");
@@ -78,6 +79,7 @@ public class UserBookingMenu implements Interactive {
 
 
     private void showAllBookedRoomIds() {
+        printBorder();
         System.out.print(currentUser.getLogin() + " room ids: ");
         System.out.println("Count of booked rooms: " + currentUser.getBookedRoomIds().size());
         if (currentUser.getBookedRoomIds().isEmpty()) {
@@ -91,6 +93,7 @@ public class UserBookingMenu implements Interactive {
     }
 
     private void showAllBookedRooms() {
+        printBorder();
         System.out.println("Rooms booked on " + currentUser.getLogin() + ":");
         if (currentUser.getBookedRoomIds().isEmpty()) {
             System.out.println(currentUser.getLogin() + " doesn't have any booked rooms.");
@@ -102,6 +105,7 @@ public class UserBookingMenu implements Interactive {
 
     private void bookRoomByIdOnUsersName() {
 
+        printBorder();
         Integer roomId = provideIntInputStreamWithMessage("Enter room id  or press 'Enter' to return to menu: ");
 
         if (roomId == null)
@@ -110,7 +114,10 @@ public class UserBookingMenu implements Interactive {
         Room roomToBook = roomService.findById(roomId);
 
         if (roomToBook == null) {
-            System.out.println("Room woth id = " + roomId + " doesn't exist. Please choose another room");
+            System.out.println("Room with id = " + roomId + " doesn't exist. Please choose another room");
+            bookRoomByIdOnUsersName();
+        } else if (!roomToBook.isAvailable()) {
+            System.out.println("Room with id = " + roomId + " is already booked. Please choose another room");
             bookRoomByIdOnUsersName();
         }
 
@@ -123,22 +130,20 @@ public class UserBookingMenu implements Interactive {
 
     private void findAndBookRoomOnUsersName() {
 
+        printBorder();
         if (roomService.getAll().isEmpty()) {
             System.out.println("Room database is empty.");
             showMenu();
         }
-        Set<Hotel> result = hotelService.getAllHotels();
 
         String hotelCity = provideStringInputStream("Enter city name where ou want book room or press 'Enter' to return to menu: ");
 
         if (!isValidString(hotelCity))
             showMenu();
 
-        result = hotelService.findHotelsByCity(hotelCity, result);
-
-        if (result.isEmpty()) {
-            System.out.println("There is no hotels in " + hotelCity);
-            showMenu();
+        if (!hotelService.isCityContainsHotels(hotelCity)) {
+            System.out.println("There is no hotels in '" + hotelCity + "' city, choose another city.");
+            findAndBookRoomOnUsersName();
         }
 
         String hotelName = provideStringInputStream("Enter hotel name or press 'Enter' to return to menu: ");
@@ -146,14 +151,13 @@ public class UserBookingMenu implements Interactive {
         if (!isValidString(hotelName))
             showMenu();
 
-        result = hotelService.findHotelsByName(hotelName, result);
 
-        if (result.isEmpty()) {
-            System.out.println("There is no hotels named " + hotelName + "in " + hotelCity);
-            showMenu();
+        if (!hotelService.isHotelExistsInCity(hotelName, hotelCity)) {
+            System.out.println("There is no hotels named " + hotelName + "in " + hotelCity + " choose another hotel.");
+            findAndBookRoomOnUsersName();
         }
 
-        Hotel hotel = result.stream().findFirst().get();
+        Hotel hotel = hotelService.findHotelByNameInCity(hotelName, hotelCity);
 
         Integer roomNumber = provideIntInputStreamWithMessage("Enter room number you want to book or press 'Enter' to return to menu: ");
 
@@ -163,8 +167,11 @@ public class UserBookingMenu implements Interactive {
         Room roomToBook = hotelService.findRoomByNumberInHotel(roomNumber, hotel);
 
         if (roomToBook == null) {
-            System.out.println("Room №" + roomNumber + " doesn't exist in " + hotel);
-            showMenu();
+            System.out.println("Room №" + roomNumber + " doesn't exist in " + hotel + ". Please choose another room");
+            findAndBookRoomOnUsersName();
+        } else if (!roomToBook.isAvailable()) {
+            System.out.println("Room with id = " + roomNumber + " is already booked. Please choose another room");
+            findAndBookRoomOnUsersName();
         }
 
         userService.bookRoomOnUser(roomToBook, currentUser);
@@ -175,6 +182,8 @@ public class UserBookingMenu implements Interactive {
     }
 
     private void unBookRoom() {
+
+        printBorder();
         Integer roomId = provideIntInputStreamWithMessage("Enter room id you want to un book or press 'Enter' to return to menu: ");
 
         if (roomId == null)
@@ -183,6 +192,7 @@ public class UserBookingMenu implements Interactive {
         Room roomToUnBook = roomService.findById(roomId);
         userService.unBookRoomFromUser(roomToUnBook, currentUser);
         roomService.unBookUserFromRoom(roomToUnBook);
+        System.out.println("Room with id = " + roomId + " has been un booked.");
         showMenu();
     }
 }

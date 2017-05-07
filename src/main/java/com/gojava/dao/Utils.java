@@ -98,6 +98,6 @@ public final class Utils {
         return null;
     }
     public static boolean isValidString(String str) {
-        return (str != null || !str.isEmpty());
+        return !(str == null || str.isEmpty());
     }
 }

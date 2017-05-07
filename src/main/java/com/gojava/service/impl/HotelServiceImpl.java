@@ -6,6 +6,7 @@ import com.gojava.service.HotelService;
 import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Hotel;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,11 +41,6 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Set<Hotel> getAllHotels() {
-        return getAll().values().stream().collect(Collectors.toSet());
-    }
-
-    @Override
     public Map<Long, Room> getAllHotelRooms(Hotel hotel) {
         return hotel.getRooms();
     }
@@ -53,6 +49,25 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     public boolean isRoomNumberExistsInHotel(Integer number, Hotel hotel) {
         return getAllHotelRooms(hotel).values().stream()
                 .anyMatch(room -> number.equals(room.getNumber()));
+    }
+
+    @Override
+    public boolean isHotelNameExists(String name) {
+        return getAll().values().stream()
+                .anyMatch(hotel -> hotel.getName().equals(name));
+    }
+
+    @Override
+    public boolean isHotelExistsInCity(String hotelName, String city) {
+        return getAll().values().stream()
+                .filter(hotel -> hotel.getCity().equals(city))
+                .anyMatch(hotel -> hotel.getName().equals(hotelName));
+    }
+
+    @Override
+    public boolean isCityContainsHotels(String city) {
+        return getAll().values().stream()
+                .anyMatch(hotel -> hotel.getCity().equals(city));
     }
 
     @Override
@@ -69,12 +84,13 @@ public class HotelServiceImpl implements HotelService<Hotel> {
     }
 
     @Override
-    public Set<Hotel> findHotelsByCity(String city, Set<Hotel> hotels) {
-        return hotels.stream().filter(hotel -> city.equals(hotel.getCity())).collect(Collectors.toSet());
+    public Hotel findHotelByNameInCity(String name, String city) {
+
+        return getAll().values().stream()
+                .filter(hotel -> city.equals(hotel.getCity()))
+                .filter(hotel -> name.equals(hotel.getName()))
+                .findFirst()
+                .get();
     }
 
-    @Override
-    public Set<Hotel> findHotelsByName(String name, Set<Hotel> hotels) {
-        return hotels.stream().filter(hotel -> name.equals(hotel.getCity())).collect(Collectors.toSet());
-    }
 }

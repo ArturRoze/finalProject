@@ -14,12 +14,9 @@ public class UsersMenu implements Interactive {
     private Interactive previousMenu;
     private UserService<User> userService = new UserServiceImpl();
 
-    public UsersMenu(Interactive interactive) {
+    UsersMenu(Interactive interactive) {
         this.previousMenu = interactive;
     }
-
-    private UserBookingMenu bookingMenu;
-
 
     @Override
     public void showMenu() {
@@ -34,6 +31,7 @@ public class UsersMenu implements Interactive {
         printBorder();
 
         Integer selectedItem = provideIntInputStream();
+        printBorder();
 
         if (selectedItem == null) {
             System.out.println("Incorrect input. Please try again");
@@ -66,6 +64,7 @@ public class UsersMenu implements Interactive {
     }
 
     private void showAllUsers() {
+
         System.out.println("Count of users: " + userService.getAll().size());
         if (userService.getAll().isEmpty()) {
             showMenu();
@@ -165,9 +164,8 @@ public class UsersMenu implements Interactive {
         User userToBook = userService.findUserByLogin(userLogin);
 
         if (userToBook != null) {
-            bookingMenu = new UserBookingMenu(userToBook, this);
-            bookingMenu.showMenu();
+            new UserBookingMenu(userToBook, this).showMenu();
         } else
-            bookingMenu.showMenu();
+            showMenu();
     }
 }

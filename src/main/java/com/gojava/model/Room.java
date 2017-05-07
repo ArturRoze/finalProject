@@ -89,8 +89,8 @@ public class Room implements Serializable, HaveId, Comparable<Room> {
     @Override
     public String toString() {
         return "Room №" + number +
-                ", in " + hotel.getName() + " hotel, in " + hotel.getCity() +
-                " city, Id = " + id +
+                ", in '" + hotel.getName() + "' hotel, in '" + hotel.getCity() +
+                "' city, Id = " + id +
                 (isAvailable() ? ", available" : (", booked by " + bookedUserName));
     }
 
