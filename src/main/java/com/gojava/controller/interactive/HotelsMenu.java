@@ -1,6 +1,7 @@
 package com.gojava.controller.interactive;
 
 import com.gojava.dao.Utils;
+import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
 import com.gojava.service.HotelService;
@@ -12,6 +13,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static com.gojava.dao.Utils.*;
+import static com.gojava.service.impl.FileManager.writeData;
 
 public class HotelsMenu implements Interactive {
 
@@ -182,11 +184,12 @@ public class HotelsMenu implements Interactive {
         Hotel hotel = new Hotel(name, city);
 
         Hotel addedHotel = hotelService.create(hotel);
+        System.out.println("Added new hotel: " + addedHotel.toString());
+        writeData(DataStorage.getInstance(), "file.txt");
 
         hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
         hotelRoomsMenu.showMenu();
 
-        System.out.println("Added new hotel: " + addedHotel.toString());
         showMenu();
     }
 
@@ -220,6 +223,7 @@ public class HotelsMenu implements Interactive {
 
         hotel.setName(nameHotel);
         hotel.setCity(cityName);
+        writeData(DataStorage.getInstance(), "file.txt");
         System.out.println("Hotel has been changed to " + hotel);
         showMenu();
     }
@@ -237,6 +241,7 @@ public class HotelsMenu implements Interactive {
             System.out.println("Hotel with this id doesn't exist");
         } else {
             hotelService.delete(removedHotel);
+            writeData(DataStorage.getInstance(), "file.txt");
             System.out.println("This Hotel with id " + removeHotelId + " has been deleted");
         }
         showMenu();

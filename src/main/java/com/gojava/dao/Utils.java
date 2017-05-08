@@ -3,6 +3,9 @@ package com.gojava.dao;
 import com.gojava.dao.impl.DataStorage;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Utils {
 
@@ -43,7 +46,7 @@ public final class Utils {
         BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(System.in));
-            return br.readLine();
+            return deleteSpaces(br.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +84,7 @@ public final class Utils {
         try {
             T result = null;
             File file = new File(fileName);
-            if (file.exists() || file.length()>1) {
+            if (file.exists() || file.length() > 1) {
 
                 FileInputStream fis = new FileInputStream(fileName);
                 ObjectInputStream oin = new ObjectInputStream(fis);
@@ -97,7 +100,24 @@ public final class Utils {
         }
         return null;
     }
+
     public static boolean isValidString(String str) {
-        return !(str == null || str.isEmpty());
+        return !(str == null || str.isEmpty() || str.split(" ").length == 0);
+    }
+
+    public static String deleteSpaces(String str) {
+
+        String newString = "";
+
+        List<String> list = Arrays.asList(str.split(" "));
+
+        for (int i = 0; i < list.size(); i++) {
+            if (Utils.isValidString(list.get(i))) {
+                newString += list.get(i);
+                if (i < list.size() - 1)
+                    newString += " ";
+            }
+        }
+        return newString;
     }
 }

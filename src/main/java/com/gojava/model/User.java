@@ -88,6 +88,7 @@ public class User implements Serializable, HaveId, Comparable<User> {
         return  "User: first name: " + firstName +
                 ", last name: " + lastName +
                 ", login: " + login +
+                ", booked rooms count: " + bookedRoomIds.size() +
                 ", id = " + id;
     }
 

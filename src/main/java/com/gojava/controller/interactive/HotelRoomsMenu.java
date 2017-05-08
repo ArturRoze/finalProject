@@ -1,5 +1,6 @@
 package com.gojava.controller.interactive;
 
+import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
 import com.gojava.model.Room;
@@ -9,6 +10,7 @@ import com.gojava.service.impl.HotelServiceImpl;
 import java.util.TreeSet;
 
 import static com.gojava.dao.Utils.*;
+import static com.gojava.service.impl.FileManager.writeData;
 
 /**
  *
@@ -84,6 +86,7 @@ public class HotelRoomsMenu implements Interactive {
         } else {
             Room room = new Room(currentHotel, roomNumber);
             hotelService.addRoomToHotel(room, currentHotel);
+            writeData(DataStorage.getInstance(), "file.txt");
             addRoom();
         }
     }
