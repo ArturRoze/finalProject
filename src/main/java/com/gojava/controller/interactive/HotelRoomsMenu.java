@@ -98,13 +98,12 @@ public class HotelRoomsMenu implements Interactive {
         if (roomNumber == null)
             showMenu();
 
-        Room room = hotelService.findRoomByNumberInHotel(roomNumber, currentHotel);
-
-        if (room == null) {
+        if (!hotelService.isRoomNumberExistsInHotel(roomNumber, currentHotel)) {
             System.out.println("Room with number = " + roomNumber + " doesn't exist in this hotel. Choose another number");
             manageRoom();
-        } else
-            roomMenu = new RoomMenu(room, this);
-        roomMenu.showMenu();
+        } else {
+            Room room = hotelService.findRoomByNumberInHotel(roomNumber, currentHotel);
+            new RoomMenu(room, this).showMenu();
+        }
     }
 }
