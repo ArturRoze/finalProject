@@ -1,5 +1,6 @@
 package com.gojava.controller.interactive;
 
+import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.service.HotelService;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 import static com.gojava.dao.Utils.*;
 import static com.gojava.dao.Utils.isValidString;
+import static com.gojava.service.impl.FileManager.writeData;
 
 /**
  *
@@ -123,6 +125,7 @@ public class UserBookingMenu implements Interactive {
 
         userService.bookRoomOnUser(roomToBook, currentUser);
         roomService.bookUser(roomToBook, currentUser);
+        writeData(DataStorage.getInstance(), "file.txt");
 
         System.out.println(roomToBook + " booked by " + currentUser);
         showMenu();
@@ -176,6 +179,7 @@ public class UserBookingMenu implements Interactive {
 
         userService.bookRoomOnUser(roomToBook, currentUser);
         roomService.bookUser(roomToBook, currentUser);
+        writeData(DataStorage.getInstance(), "file.txt");
 
         System.out.println(roomToBook + " booked by " + currentUser);
         showMenu();
@@ -192,6 +196,7 @@ public class UserBookingMenu implements Interactive {
         Room roomToUnBook = roomService.findById(roomId);
         userService.unBookRoomFromUser(roomToUnBook, currentUser);
         roomService.unBookUserFromRoom(roomToUnBook);
+        writeData(DataStorage.getInstance(), "file.txt");
         System.out.println("Room with id = " + roomId + " has been un booked.");
         showMenu();
     }

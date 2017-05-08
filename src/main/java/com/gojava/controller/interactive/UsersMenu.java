@@ -1,5 +1,6 @@
 package com.gojava.controller.interactive;
 
+import com.gojava.dao.impl.DataStorage;
 import com.gojava.service.UserService;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
@@ -8,6 +9,7 @@ import com.gojava.service.impl.UserServiceImpl;
 import java.util.TreeSet;
 
 import static com.gojava.dao.Utils.*;
+import static com.gojava.service.impl.FileManager.writeData;
 
 public class UsersMenu implements Interactive {
 
@@ -93,6 +95,7 @@ public class UsersMenu implements Interactive {
 
         User user = new User(login, name, lastName);
         userService.create(user);
+        writeData(DataStorage.getInstance(), "file.txt");
         System.out.println("User " + user + " successfully created");
         showMenu();
     }
@@ -120,6 +123,7 @@ public class UsersMenu implements Interactive {
             String newLastName = provideStringInputStream("Enter new last name: ");
             userToUpdate.setFirstName(newFirstName);
             userToUpdate.setLastName(newLastName);
+            writeData(DataStorage.getInstance(), "file.txt");
             System.out.println("This user with login = " + userLogin + " changed");
         }
         showMenu();
@@ -144,6 +148,8 @@ public class UsersMenu implements Interactive {
             showMenu();
         } else {
             userService.delete(userToDelete);
+            writeData(DataStorage.getInstance(), "file.txt");
+            System.out.println("User " + userLogin + " deleted.");
         }
         showMenu();
 

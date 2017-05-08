@@ -1,5 +1,6 @@
 package com.gojava.controller.interactive;
 
+import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
 import com.gojava.model.Room;
@@ -12,6 +13,7 @@ import com.gojava.service.impl.RoomServiceImpl;
 import com.gojava.service.impl.UserServiceImpl;
 
 import static com.gojava.dao.Utils.*;
+import static com.gojava.service.impl.FileManager.writeData;
 
 /**
  *
@@ -86,8 +88,9 @@ public class RoomMenu implements Interactive {
             System.out.println("Room №" + roomNumber + " already exists in " + currentRoom.getHotel());
             updateRoom();
         } else {
-            System.out.println("Room number was changed from " + currentRoom.getNumber() + " to " + roomNumber);
             currentRoom.setNumber(roomNumber);
+            writeData(DataStorage.getInstance(), "file.txt");
+            System.out.println("Room number was changed from " + currentRoom.getNumber() + " to " + roomNumber);
             showMenu();
         }
         showMenu();
@@ -101,6 +104,7 @@ public class RoomMenu implements Interactive {
             showMenu();
         else {
             System.out.println("Room " + roomService.delete(currentRoom) + " has been deleted.");
+            writeData(DataStorage.getInstance(), "file.txt");
             previousMenu.showMenu();
         }
     }
@@ -127,20 +131,27 @@ public class RoomMenu implements Interactive {
         if (userLogin != null) {
             userService.bookRoomOnUser(currentRoom, currentUser);
             roomService.bookUser(currentRoom, currentUser);
-            System.out.println(currentRoom + " has been booked by " + currentUser.getLogin());
+            writeData(DataStorage.getInstance(), "file.txt");
+            System.out.println(currentRoom + ", has been booked by " + currentUser.getLogin());
             showMenu();
         }
     }
 
     private void unBookRoom() {
 
+        if (currentRoom.isAvailable()) {
+            System.out.println("This room isn't booked");
+            showMenu();
+        }
+
         String choice = provideStringInputStream("Enter 'y' to un book room " + currentRoom + " or press 'Enter' to return to menu: ");
 
-        if (!isValidString(choice) && !choice.toLowerCase().equals("y"))
+        if (!isValidString(choice) && !choice.equals("y"))
             showMenu();
         else {
             userService.unBookRoomFromUser(currentRoom, userService.findUserByLogin(currentRoom.getBookedUserName()));
             roomService.unBookUserFromRoom(currentRoom);
+            writeData(DataStorage.getInstance(), "file.txt");
             showMenu();
         }
     }

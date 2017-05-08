@@ -2,16 +2,13 @@ package com.gojava.controller.interactive;
 
 import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Interactive;
-import com.gojava.service.FileManager;
-import com.gojava.service.impl.FileManagerImpl;
 
 import static com.gojava.dao.Utils.printBorder;
 import static com.gojava.dao.Utils.provideIntInputStream;
+import static com.gojava.service.impl.FileManager.readData;
+import static com.gojava.service.impl.FileManager.writeData;
 
 public class MainMenu implements Interactive {
-
-    private final static String FILE_NAME = "file.txt";
-    private FileManager fileManager = new FileManagerImpl();
 
     @Override
     public void showMenu() {
@@ -37,7 +34,7 @@ public class MainMenu implements Interactive {
                     new UsersMenu(this).showMenu();
                     break;
                 case 3:
-                    fileManager.writeData(DataStorage.getInstance(), FILE_NAME);
+                    writeData(DataStorage.getInstance(), "file.txt");
                     System.exit(0);
                     break;
                 default:
@@ -53,7 +50,7 @@ public class MainMenu implements Interactive {
     }
 
     private void initializeDataStorage() {
-        DataStorage storage = fileManager.readData(FILE_NAME);
+        DataStorage storage = readData("file.txt");
         if (storage == null) {
             DataStorage.getInstance();
         } else {
