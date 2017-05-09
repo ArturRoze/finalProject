@@ -103,7 +103,13 @@ public class RoomMenu implements Interactive {
         if (!isValidString(choice) && !choice.toLowerCase().equals("y"))
             showMenu();
         else {
-            System.out.println("Room " + roomService.delete(currentRoom) + " has been deleted.");
+            System.out.println("Room " + currentRoom + " has been deleted.");
+
+            if (!currentRoom.isAvailable())
+                userService.unBookRoomFromUser(currentRoom, userService.findUserByLogin(currentRoom.getBookedUserName()));
+
+            roomService.delete(currentRoom);
+
             writeData(DataStorage.getInstance(), "file.txt");
             previousMenu.showMenu();
         }

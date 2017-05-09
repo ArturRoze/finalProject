@@ -28,7 +28,7 @@ public class RoomDaoImpl implements Crud<Room> {
 
     @Override
     public Room delete(Room entity) {
-        return getAll().remove(entity.getId());
+        return entity.getHotel().getRooms().remove(entity.getId());
     }
 
     @Override
