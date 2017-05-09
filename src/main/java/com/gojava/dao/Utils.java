@@ -3,9 +3,6 @@ package com.gojava.dao;
 import com.gojava.dao.impl.DataStorage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public final class Utils {
 
@@ -19,8 +16,6 @@ public final class Utils {
     public static Integer provideIntInputStream() {
         return provideIntInputStreamWithMessage("Select choice (confirm Enter): ");
     }
-
-    //TODO close streams
 
     public static Integer provideIntInputStreamWithMessage(String message) {
         System.out.print(message);
@@ -39,7 +34,6 @@ public final class Utils {
         }
         return null;
     }
-
 
     public static String provideStringInputStream(String enterData) {
         System.out.print(enterData);
@@ -66,7 +60,6 @@ public final class Utils {
     }
 
     public static <T> void writeFile(String fileName, T object) {
-        //TODO use try with resources
         try {
             File file = checkFile(fileName);
             FileOutputStream fos = new FileOutputStream(file);
@@ -80,7 +73,6 @@ public final class Utils {
     }
 
     public static <T extends DataStorage> T readFile(String fileName) {
-        //TODO use try with resources
         try {
             T result = null;
             File file = new File(fileName);
@@ -109,12 +101,12 @@ public final class Utils {
 
         String newString = "";
 
-        List<String> list = Arrays.asList(str.split(" "));
+        final String[] split = str.split(" ");
 
-        for (int i = 0; i < list.size(); i++) {
-            if (Utils.isValidString(list.get(i))) {
-                newString += list.get(i);
-                if (i < list.size() - 1)
+        for (int i = 0; i < split.length; i++) {
+            if (isValidString(split[i])) {
+                newString += split[i];
+                if (i < split.length - 1)
                     newString += " ";
             }
         }
