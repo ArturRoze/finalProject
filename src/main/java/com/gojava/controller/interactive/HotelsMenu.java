@@ -3,8 +3,11 @@ package com.gojava.controller.interactive;
 import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
+import com.gojava.model.User;
 import com.gojava.service.HotelService;
+import com.gojava.service.UserService;
 import com.gojava.service.impl.HotelServiceImpl;
+import com.gojava.service.impl.UserServiceImpl;
 
 import java.util.TreeSet;
 
@@ -15,6 +18,7 @@ public class HotelsMenu implements Interactive {
 
     private Interactive previousMenu;
     private HotelRoomsMenu hotelRoomsMenu;
+    private UserService<User> userService = new UserServiceImpl();
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
     HotelsMenu(Interactive interactive) {
@@ -236,6 +240,11 @@ public class HotelsMenu implements Interactive {
         if (removedHotel == null) {
             System.out.println("Hotel with this id doesn't exist");
         } else {
+
+            removedHotel.getRooms().values().stream()
+                    .filter(room -> !room.isAvailable())
+                    .forEach(room -> userService.unBookRoomFromUser(room, userService.findUserByLogin(room.getBookedUserName())));
+
             hotelService.delete(removedHotel);
             writeData(DataStorage.getInstance(), "file.txt");
             System.out.println("This Hotel with id " + removeHotelId + " has been deleted");
