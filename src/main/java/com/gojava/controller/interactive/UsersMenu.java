@@ -4,6 +4,7 @@ import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
 import com.gojava.service.UserService;
+import com.gojava.service.impl.RoomServiceImpl;
 import com.gojava.service.impl.UserServiceImpl;
 
 import java.util.TreeSet;
@@ -15,6 +16,7 @@ public class UsersMenu implements Interactive {
 
     private Interactive previousMenu;
     private UserService<User> userService = new UserServiceImpl();
+    private RoomServiceImpl roomService = new RoomServiceImpl();
 
     UsersMenu(Interactive interactive) {
         this.previousMenu = interactive;
@@ -147,12 +149,15 @@ public class UsersMenu implements Interactive {
             System.out.println("User with this id has't been found");
             showMenu();
         } else {
+
+            if (!userToDelete.getBookedRoomIds().isEmpty())
+            userToDelete.getBookedRoomIds().forEach(id -> roomService.unBookUserFromRoom(roomService.findById(id)));
+
             userService.delete(userToDelete);
             writeData(DataStorage.getInstance(), "file.txt");
             System.out.println("User " + userLogin + " deleted.");
         }
         showMenu();
-
     }
 
     private void toBookingMenu() {
