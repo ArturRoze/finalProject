@@ -11,6 +11,4 @@ public interface RoomService<T extends Room> extends Crud<T> {
     boolean bookUser(Room room, User user);
 
     boolean unBookUserFromRoom(Room room);
-
-    Map<Long, Room> getAllHotelRooms(long hotelId);
 }

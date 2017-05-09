@@ -1,16 +1,12 @@
 package com.gojava.controller.interactive;
 
-import com.gojava.dao.Utils;
 import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
 import com.gojava.model.Interactive;
 import com.gojava.service.HotelService;
 import com.gojava.service.impl.HotelServiceImpl;
 
-import java.util.Optional;
-import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
@@ -82,8 +78,8 @@ public class HotelsMenu implements Interactive {
         Integer selectedItem = provideIntInputStream();
 
         if (selectedItem == null) {
-            System.err.println("not correct entered data, try again");
-            findHotel();
+            System.out.println("not correct entered data, try again");
+            showMenu();
         } else {
             switch (selectedItem) {
                 case 1:

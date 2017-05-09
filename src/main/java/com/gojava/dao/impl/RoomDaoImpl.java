@@ -1,11 +1,8 @@
 package com.gojava.dao.impl;
 
 import com.gojava.model.Crud;
-import com.gojava.service.HotelService;
-import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
-import com.gojava.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +42,4 @@ public class RoomDaoImpl implements Crud<Room> {
     public Room findById(long id) {
         return getAll().get(id);
     }
-
-
 }

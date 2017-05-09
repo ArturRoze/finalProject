@@ -2,9 +2,7 @@ package com.gojava.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Simple JavaBean domain object that represents a Room in a hotel.
@@ -81,9 +79,9 @@ public class Hotel implements Serializable, HaveId, Comparable<Hotel> {
 
     @Override
     public String toString() {
-        return  "Hotel: '" + name +
+        return "Hotel: '" + name +
                 "', in '" + city +
-                "' city, count of rooms: " +rooms.size() +
+                "' city, count of rooms: " + rooms.size() +
                 ", id = " + id;
     }
 

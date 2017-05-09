@@ -1,15 +1,12 @@
 package com.gojava.service.impl;
 
+import com.gojava.dao.impl.HotelDaoImpl;
 import com.gojava.model.Crud;
+import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.service.HotelService;
-import com.gojava.dao.impl.HotelDaoImpl;
-import com.gojava.model.Hotel;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class HotelServiceImpl implements HotelService<Hotel> {
 
@@ -32,7 +29,7 @@ public class HotelServiceImpl implements HotelService<Hotel> {
 
     @Override
     public Map<Long, Hotel> getAll() {
-       return hotelDao.getAll();
+        return hotelDao.getAll();
     }
 
     @Override

@@ -2,11 +2,11 @@ package com.gojava.service.impl;
 
 import com.gojava.dao.impl.RoomDaoImpl;
 import com.gojava.model.Crud;
-import com.gojava.service.HotelService;
-import com.gojava.service.RoomService;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.model.User;
+import com.gojava.service.HotelService;
+import com.gojava.service.RoomService;
 
 import java.util.Map;
 
@@ -57,10 +57,5 @@ public class RoomServiceImpl implements RoomService<Room> {
         room.setBookedUserName(null);
         return true;
     }
-
-    public Map<Long, Room> getAllHotelRooms(long hotelId) {
-        return hotelService.findById(hotelId).getRooms();
-    }
-
 
 }

@@ -1,9 +1,9 @@
 package com.gojava.controller.interactive;
 
 import com.gojava.dao.impl.DataStorage;
-import com.gojava.service.UserService;
 import com.gojava.model.Interactive;
 import com.gojava.model.User;
+import com.gojava.service.UserService;
 import com.gojava.service.impl.UserServiceImpl;
 
 import java.util.TreeSet;

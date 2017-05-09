@@ -97,9 +97,9 @@ public class Room implements Serializable, HaveId, Comparable<Room> {
 
     @Override
     public int compareTo(Room o) {
-        if (!hotel.getCity().equals(o.getHotel().getCity())){
+        if (!hotel.getCity().equals(o.getHotel().getCity())) {
             return hotel.getCity().compareTo(o.getHotel().getCity());
-        } else if (!hotel.getName().equals(o.getHotel().getName())){
+        } else if (!hotel.getName().equals(o.getHotel().getName())) {
             return hotel.getName().compareTo(o.getHotel().getName());
         }
         return Integer.compare(number, o.getNumber());

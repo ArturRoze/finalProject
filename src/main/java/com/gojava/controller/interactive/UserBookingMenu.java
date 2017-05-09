@@ -2,20 +2,16 @@ package com.gojava.controller.interactive;
 
 import com.gojava.dao.impl.DataStorage;
 import com.gojava.model.Hotel;
+import com.gojava.model.Interactive;
 import com.gojava.model.Room;
+import com.gojava.model.User;
 import com.gojava.service.HotelService;
 import com.gojava.service.UserService;
-import com.gojava.model.Interactive;
-import com.gojava.model.User;
 import com.gojava.service.impl.HotelServiceImpl;
 import com.gojava.service.impl.RoomServiceImpl;
 import com.gojava.service.impl.UserServiceImpl;
 
-import java.util.NoSuchElementException;
-import java.util.Set;
-
 import static com.gojava.dao.Utils.*;
-import static com.gojava.dao.Utils.isValidString;
 import static com.gojava.service.impl.FileManager.writeData;
 
 /**

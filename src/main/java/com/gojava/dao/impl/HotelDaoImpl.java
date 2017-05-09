@@ -1,7 +1,6 @@
 package com.gojava.dao.impl;
 
 import com.gojava.model.Crud;
-import com.gojava.service.HotelService;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
@@ -22,7 +21,7 @@ public class HotelDaoImpl implements Crud<Hotel> {
 
     @Override
     public boolean update(Hotel hotel) {
-        if (hotel == null){
+        if (hotel == null) {
             throw new RuntimeException("Hotel can't be null");
         } else {
             DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);

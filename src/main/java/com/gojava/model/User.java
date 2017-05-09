@@ -85,7 +85,7 @@ public class User implements Serializable, HaveId, Comparable<User> {
 
     @Override
     public String toString() {
-        return  "User: first name: " + firstName +
+        return "User: first name: " + firstName +
                 ", last name: " + lastName +
                 ", login: " + login +
                 ", booked rooms count: " + bookedRoomIds.size() +

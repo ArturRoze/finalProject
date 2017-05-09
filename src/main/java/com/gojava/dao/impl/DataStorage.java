@@ -14,7 +14,6 @@ public class DataStorage implements Serializable {
     private Map<Long, Hotel> hotels = new HashMap<>();
     private Map<Long, User> users = new HashMap<>();
 
-
     private DataStorage() {
     }
 

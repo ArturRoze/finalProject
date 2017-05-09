@@ -33,6 +33,4 @@ public class UserDaoImpl implements Crud<User> {
     public User findById(long id) {
         return getAll().get(id);
     }
-
-
 }
