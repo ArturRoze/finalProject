@@ -22,7 +22,6 @@ import static com.gojava.service.impl.FileManager.writeData;
 public class HotelsMenu implements Interactive {
 
     private Interactive previousMenu;
-    private HotelRoomsMenu hotelRoomsMenu;
     private UserService<User> userService = new UserServiceImpl();
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
@@ -192,8 +191,7 @@ public class HotelsMenu implements Interactive {
         System.out.println("Added new hotel: " + addedHotel.toString());
         writeData(DataStorage.getInstance(), "file.txt");
 
-        hotelRoomsMenu = new HotelRoomsMenu(hotel, this);
-        hotelRoomsMenu.showMenu();
+        new HotelRoomsMenu(hotel, this).showMenu();
 
         showMenu();
     }

@@ -18,10 +18,19 @@ public final class Utils {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * This method writes static message and reads integer from console.
+     * @return integer or null.
+     */
     public static Integer provideIntInputStream() {
         return provideIntInputStreamWithMessage("Select choice (confirm Enter): ");
     }
 
+    /**
+     * This method writes message which was been put in param and reads integer from console.
+     * @param message which we show to user.
+     * @return integer or null.
+     */
     public static Integer provideIntInputStreamWithMessage(String message) {
         System.out.print(message);
         String line;
@@ -40,8 +49,13 @@ public final class Utils {
         return null;
     }
 
-    public static String provideStringInputStream(String enterData) {
-        System.out.print(enterData);
+    /**
+     * This method writes message which was been put in param and reads string from console.
+     * @param message which we show to user.
+     * @return String
+     */
+    public static String provideStringInputStream(String message) {
+        System.out.print(message);
         BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(System.in));
@@ -79,7 +93,7 @@ public final class Utils {
 
     public static <T extends DataStorage> T readFile(String fileName) {
         try {
-            T result = null;
+            T result;
             File file = new File(fileName);
             if (file.exists() || file.length() > 1) {
 
@@ -98,10 +112,21 @@ public final class Utils {
         return null;
     }
 
+    /**
+     * This method validates given string.
+     * @param str
+     * @return true if string has passed validation
+     * @return false if string has failed validation
+     */
     public static boolean isValidString(String str) {
         return !(str == null || str.isEmpty() || str.split(" ").length == 0);
     }
 
+    /**
+     * This method deletes extra spaces from given string
+     * @param str String with extra spaces
+     * @return String without extra spaces
+     */
     public static String deleteSpaces(String str) {
 
         String newString = "";

@@ -21,7 +21,6 @@ public class HotelRoomsMenu implements Interactive {
 
     private Hotel currentHotel;
     private Interactive previousMenu;
-    private Interactive roomMenu;
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
     /**
