@@ -16,8 +16,9 @@ import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
 
 /**
- *
+ * @author Vancho
  */
+
 public class RoomMenu implements Interactive {
 
     private Room currentRoom;
@@ -25,8 +26,9 @@ public class RoomMenu implements Interactive {
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
     private RoomService<Room> roomService = new RoomServiceImpl();
     private UserService<User> userService = new UserServiceImpl();
-
-
+    /**
+     * This constructor holds a reference to the room and previous menu.
+     */
     RoomMenu(Room currentRoom, Interactive previousMenu) {
         this.currentRoom = currentRoom;
         this.previousMenu = previousMenu;
@@ -62,7 +64,7 @@ public class RoomMenu implements Interactive {
                     bookRoomOnUsersName();
                     break;
                 case 4:
-                    unBookRoom();
+                    cancelBookRoom();
                     break;
                 case 5:
                     previousMenu.showMenu();
@@ -143,7 +145,7 @@ public class RoomMenu implements Interactive {
         }
     }
 
-    private void unBookRoom() {
+    private void cancelBookRoom() {
 
         if (currentRoom.isAvailable()) {
             System.out.println("This room isn't booked");

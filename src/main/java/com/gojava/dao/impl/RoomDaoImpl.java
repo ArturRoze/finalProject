@@ -1,12 +1,16 @@
 package com.gojava.dao.impl;
 
-import com.gojava.model.Crud;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ * @author firsachi
+ */
 public class RoomDaoImpl implements Crud<Room> {
 
     private Crud<Hotel> hotelDao = new HotelDaoImpl();

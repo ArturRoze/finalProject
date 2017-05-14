@@ -1,10 +1,13 @@
 package com.gojava.dao.impl;
 
-import com.gojava.model.Crud;
 import com.gojava.model.User;
 
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
 public class UserDaoImpl implements Crud<User> {
 
     @Override

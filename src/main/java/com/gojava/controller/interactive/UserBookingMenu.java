@@ -15,8 +15,9 @@ import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
 
 /**
- *
+ * @author Vancho
  */
+
 public class UserBookingMenu implements Interactive {
 
     private User currentUser;
@@ -24,7 +25,6 @@ public class UserBookingMenu implements Interactive {
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
     private UserService<User> userService = new UserServiceImpl();
     private RoomServiceImpl roomService = new RoomServiceImpl();
-
 
     UserBookingMenu(User currentUser, Interactive previousMenu) {
         this.currentUser = currentUser;
@@ -63,7 +63,7 @@ public class UserBookingMenu implements Interactive {
                     findAndBookRoomOnUsersName();
                     break;
                 case 5:
-                    unBookRoom();
+                    cancelBookRoom();
                     break;
                 case 6:
                     previousMenu.showMenu();
@@ -150,7 +150,6 @@ public class UserBookingMenu implements Interactive {
         if (!isValidString(hotelName))
             showMenu();
 
-
         if (!hotelService.isHotelExistsInCity(hotelName, hotelCity)) {
             System.out.println("There is no hotels named " + hotelName + "in " + hotelCity + " choose another hotel.");
             findAndBookRoomOnUsersName();
@@ -181,7 +180,7 @@ public class UserBookingMenu implements Interactive {
         showMenu();
     }
 
-    private void unBookRoom() {
+    private void cancelBookRoom() {
 
         printBorder();
         Integer roomId = provideIntInputStreamWithMessage("Enter room id you want to un book or press 'Enter' to return to menu: ");
@@ -193,7 +192,7 @@ public class UserBookingMenu implements Interactive {
         userService.unBookRoomFromUser(roomToUnBook, currentUser);
         roomService.unBookUserFromRoom(roomToUnBook);
         writeData(DataStorage.getInstance(), "file.txt");
-        System.out.println("Room with id = " + roomId + " has been un booked.");
+        System.out.println("Room with id = " + roomId + " has been canceled.");
         showMenu();
     }
 }

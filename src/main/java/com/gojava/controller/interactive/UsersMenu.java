@@ -12,6 +12,11 @@ import java.util.TreeSet;
 import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
+
 public class UsersMenu implements Interactive {
 
     private Interactive previousMenu;
@@ -77,7 +82,6 @@ public class UsersMenu implements Interactive {
         showMenu();
     }
 
-
     private void createUser() {
 
         String login = provideStringInputStream("Enter user's login: ");
@@ -101,8 +105,9 @@ public class UsersMenu implements Interactive {
         System.out.println("User " + user + " successfully created");
         showMenu();
     }
-
-
+    /**
+     * This method changes name or last Name of user.
+     */
     private void updateUser() {
 
         String userLogin = provideStringInputStream("Enter user's login: ");

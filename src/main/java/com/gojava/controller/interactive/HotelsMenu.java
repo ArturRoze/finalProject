@@ -14,6 +14,11 @@ import java.util.TreeSet;
 import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ * This class is responsible for managing the hotels.
+ */
 public class HotelsMenu implements Interactive {
 
     private Interactive previousMenu;
@@ -251,7 +256,6 @@ public class HotelsMenu implements Interactive {
         }
         showMenu();
     }
-
 
     private void manageHotelRooms() {
 

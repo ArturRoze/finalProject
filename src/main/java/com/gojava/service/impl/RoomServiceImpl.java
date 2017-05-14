@@ -1,7 +1,7 @@
 package com.gojava.service.impl;
 
 import com.gojava.dao.impl.RoomDaoImpl;
-import com.gojava.model.Crud;
+import com.gojava.dao.impl.Crud;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.model.User;
@@ -11,9 +11,9 @@ import com.gojava.service.RoomService;
 import java.util.Map;
 
 /**
- *
+ * @author Vancho
+ * @author Artur Roze
  */
-
 public class RoomServiceImpl implements RoomService<Room> {
 
     private HotelService<Hotel> hotelService = new HotelServiceImpl();

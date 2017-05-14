@@ -1,10 +1,13 @@
 package com.gojava.dao.impl;
 
-import com.gojava.model.Crud;
 import com.gojava.model.Hotel;
 
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
 public class HotelDaoImpl implements Crud<Hotel> {
 
     @Override
@@ -14,7 +17,6 @@ public class HotelDaoImpl implements Crud<Hotel> {
             throw new RuntimeException("Hotel can't be null");
         } else {
             DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);
-
             return hotel;
         }
     }
@@ -27,7 +29,6 @@ public class HotelDaoImpl implements Crud<Hotel> {
             DataStorage.getInstance().getHotels().put(hotel.getId(), hotel);
             return true;
         }
-
     }
 
     @Override
@@ -44,6 +45,4 @@ public class HotelDaoImpl implements Crud<Hotel> {
     public Hotel findById(long id) {
         return getAll().get(id);
     }
-
-
 }

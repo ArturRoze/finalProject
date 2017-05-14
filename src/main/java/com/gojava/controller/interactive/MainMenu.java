@@ -8,6 +8,11 @@ import static com.gojava.dao.Utils.provideIntInputStream;
 import static com.gojava.service.impl.FileManager.readData;
 import static com.gojava.service.impl.FileManager.writeData;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ * This class includes the main menu.
+ */
 public class MainMenu implements Interactive {
 
     @Override
@@ -43,7 +48,9 @@ public class MainMenu implements Interactive {
             }
         }
     }
-
+    /**
+     * This method read data from DB and show main menu.
+     */
     public void startGame() {
         initializeDataStorage();
         showMenu();

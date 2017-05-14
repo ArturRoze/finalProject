@@ -8,9 +8,10 @@ import java.util.Set;
  * Simple JavaBean domain object that represents a Room in a hotel.
  *
  * @author Firsov
+ * @author Vancho
+ * @author Artur Roze
  * @version 1.0
  */
-
 public class User implements Serializable, HaveId, Comparable<User> {
 
     private static final long serialVersionUID = 1L;

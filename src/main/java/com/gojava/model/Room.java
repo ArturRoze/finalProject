@@ -6,10 +6,10 @@ import java.io.Serializable;
  * Simple JavaBean domain object that represents a Room in a hotel.
  *
  * @author Firsov
+ * @author Vancho
+ * @author Artur Roze
  * @version 1.0
  */
-
-
 public class Room implements Serializable, HaveId, Comparable<Room> {
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +25,6 @@ public class Room implements Serializable, HaveId, Comparable<Room> {
         this.hotel = hotel;
         this.number = number;
         available = true;
-
     }
 
     public void setNumber(int number) {
@@ -39,7 +38,6 @@ public class Room implements Serializable, HaveId, Comparable<Room> {
     public void setBookedUserName(String bookedUserName) {
         this.bookedUserName = bookedUserName;
     }
-
 
     @Override
     public long getId() {
@@ -93,7 +91,6 @@ public class Room implements Serializable, HaveId, Comparable<Room> {
                 "' city, Id = " + id +
                 (isAvailable() ? ", available" : (", booked by " + bookedUserName));
     }
-
 
     @Override
     public int compareTo(Room o) {

@@ -1,13 +1,17 @@
 package com.gojava.service.impl;
 
 import com.gojava.dao.impl.HotelDaoImpl;
-import com.gojava.model.Crud;
+import com.gojava.dao.impl.Crud;
 import com.gojava.model.Hotel;
 import com.gojava.model.Room;
 import com.gojava.service.HotelService;
 
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
 public class HotelServiceImpl implements HotelService<Hotel> {
 
     private Crud<Hotel> hotelDao = new HotelDaoImpl();
@@ -89,5 +93,4 @@ public class HotelServiceImpl implements HotelService<Hotel> {
                 .findFirst()
                 .get();
     }
-
 }

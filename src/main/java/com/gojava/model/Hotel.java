@@ -8,6 +8,8 @@ import java.util.Map;
  * Simple JavaBean domain object that represents a Room in a hotel.
  *
  * @author Firsov
+ * @author Vancho
+ * @author Artur Roze
  * @version 1.0
  */
 

@@ -1,13 +1,17 @@
 package com.gojava.service.impl;
 
 import com.gojava.dao.impl.UserDaoImpl;
-import com.gojava.model.Crud;
+import com.gojava.dao.impl.Crud;
 import com.gojava.model.Room;
 import com.gojava.model.User;
 import com.gojava.service.UserService;
 
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
 public class UserServiceImpl implements UserService<User> {
 
     Crud<User> userDaoImpl = new UserDaoImpl();

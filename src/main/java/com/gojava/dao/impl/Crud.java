@@ -1,7 +1,13 @@
-package com.gojava.model;
+package com.gojava.dao.impl;
+
+import com.gojava.model.HaveId;
 
 import java.util.Map;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ */
 public interface Crud<T extends HaveId> {
 
     T create(T entity);

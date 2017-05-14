@@ -13,8 +13,10 @@ import static com.gojava.dao.Utils.*;
 import static com.gojava.service.impl.FileManager.writeData;
 
 /**
- *
+ * @author Vancho
+ * This class is responsible for managing the hotel rooms.
  */
+
 public class HotelRoomsMenu implements Interactive {
 
     private Hotel currentHotel;
@@ -22,6 +24,9 @@ public class HotelRoomsMenu implements Interactive {
     private Interactive roomMenu;
     private HotelService<Hotel> hotelService = new HotelServiceImpl();
 
+    /**
+     * This constructor holds a reference to the hotel and previous menu.
+     */
     HotelRoomsMenu(Hotel currentHotel, Interactive previousMenu) {
         this.currentHotel = currentHotel;
         this.previousMenu = previousMenu;
