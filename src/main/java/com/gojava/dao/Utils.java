@@ -4,6 +4,11 @@ import com.gojava.dao.impl.DataStorage;
 
 import java.io.*;
 
+/**
+ * @author Vancho
+ * @author Artur Roze
+ * @author firsachi
+ */
 public final class Utils {
 
     private Utils() {
