@@ -27,7 +27,7 @@ public final class Utils {
     }
 
     /**
-     * This method writes message which was been put in param and reads integer from console.
+     * This method writes message which was put in param and reads integer from console.
      * @param message which we show to user.
      * @return integer or null.
      */
@@ -50,7 +50,7 @@ public final class Utils {
     }
 
     /**
-     * This method writes message which was been put in param and reads string from console.
+     * This method writes message which was put in param and reads string from console.
      * @param message which we show to user.
      * @return String
      */
